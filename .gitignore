@@ -73,3 +73,4 @@ crashlytics-build.properties
 
 # Script Templates
 /[Aa]ssets/[Ss]cript[Tt]emplates/*
+/[Aa]ssets/[Ss]cript[Tt]emplates.meta
