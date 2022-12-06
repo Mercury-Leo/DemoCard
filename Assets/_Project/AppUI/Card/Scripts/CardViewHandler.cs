@@ -4,7 +4,7 @@ using Editor.Logger.Scripts;
 using UnityEngine;
 
 namespace _Project.AppUI.Card.Scripts {
-    public class CardViewManager : MonoBehaviour {
+    public class CardViewHandler : MonoBehaviour {
         [Header("Components")] [SerializeField]
         GameObject _playerCards;
 
