@@ -17,7 +17,7 @@ namespace _Project.AppUI.Card.Scripts {
 
         public void SetPlayerHand(IEnumerable<ICard> cards) {
             foreach (var card in cards) {
-                var prefab = Instantiate(_cardPrefab);
+                var prefab = Instantiate(_cardPrefab, _playerCards.transform);
                 prefab.SetCardData(card);
                 prefab.OnCardClicked += CardClicked;
             }
