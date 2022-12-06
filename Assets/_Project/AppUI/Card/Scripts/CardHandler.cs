@@ -1,10 +1,11 @@
+using System;
+using _Project.AppUI.Components.Scripts;
 using _Project.Core.Card.Interfaces;
-using _Project.Core.Dealer.Scripts;
 using TMPro;
 using UnityEngine;
 
 namespace _Project.AppUI.Card.Scripts {
-    public class CardHandler : MonoBehaviour {
+    public class CardHandler : UIButton {
         [SerializeField] TMP_Text _cardValue;
 
         string CardValue {
@@ -15,9 +16,7 @@ namespace _Project.AppUI.Card.Scripts {
             }
         }
 
-        void Start() {
-            var t = new DeckCreator().Generate();
-        }
+        public Action<ICard> OnCardClicked { get; set; }
 
         ICard _card;
 
@@ -27,5 +26,10 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void DisplayCardValue() => CardValue = _card.Value.ToString();
+
+        protected override void ButtonClicked() {
+            base.ButtonClicked();
+            OnCardClicked?.Invoke(_card);
+        }
     }
 }
