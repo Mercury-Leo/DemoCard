@@ -1,13 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Project.Core.Card.Interfaces;
+using _Project.Core.Dealer.Interfaces;
+using _Project.Core.Dealer.Scripts;
 using _Project.Game.Player.Interfaces;
 using Editor.Logger.Scripts;
 
 namespace _Project.Game.Player.Scripts {
-    public class Player : IPlayer {
+    public class CardPlayer : IPlayer {
         public Guid PlayerID { get; set; }
         public List<ICard> Cards { get; set; } = new();
+
+        readonly IDealer _dealer = new Dealer();
+
+        public CardPlayer() {
+            Cards = _dealer.GenerateDeck().ToList();
+        }
 
         public ICard PerformAction(ICard card) {
             return card;
