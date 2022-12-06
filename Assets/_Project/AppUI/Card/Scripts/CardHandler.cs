@@ -16,7 +16,7 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void Start() {
-            var t = new Dealer().GenerateDeck();
+            var t = new DeckCreator().Generate();
         }
 
         ICard _card;

@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.Player.Scripts;
-using _Project.Game.PlayerCreator.Interfaces;
+using _Project.Game.PlayerUtility.Interfaces;
 
-namespace _Project.Game.PlayerCreator.Scripts {
+namespace _Project.Game.PlayerUtility.Scripts {
     public class PlayerCreator : IPlayerCreator {
-        public IPlayer[] GeneratePlayers(int playersToCreate) {
+        public IEnumerable<IPlayer> Generate(int playersToCreate) {
             var players = new IPlayer[playersToCreate];
             for (var i = 0; i < playersToCreate; i++) {
                 players[i] = new CardPlayer();

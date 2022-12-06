@@ -17,7 +17,7 @@ namespace _Project.Core{
 		public const int DeckSize = 54;
 		public const int SpecialCards = 6;
 		
-		public static int[] specialValues = { -1, -1, 0, 0, 13, 13 };
+		public static readonly int[] SpecialValues = { -1, -1, 0, 0, 13, 13 };
 
 		#region CardEffects
 

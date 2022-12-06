@@ -6,6 +6,7 @@ namespace _Project.Game.Player.Interfaces {
     public interface IPlayer {
         public abstract Guid PlayerID { get; set; }
         public abstract List<ICard> Cards { get; set; }
+        public abstract void PopulateCards(IList<ICard> cards);
         public abstract ICard PerformAction(ICard card);
         public abstract ICard SwapCards(ICard cardToRemove, ICard cardToInsert);
         public abstract ICard SwapCards(int cardPosition, ICard cardToInsert);
