@@ -2,21 +2,41 @@ using System;
 using System.Collections.Generic;
 using _Project.Core.Card.Interfaces;
 using _Project.Game.Player.Interfaces;
+using Editor.Logger.Scripts;
 
-namespace _Project.Game.Player.Scripts{
-	public class Player : IPlayer{
-		public Guid PlayerID { get; set; }
-		public IList<ICard> Cards { get; set; }
-		public ICard PerformAction(ICard card) {
-			throw new NotImplementedException();
-		}
+namespace _Project.Game.Player.Scripts {
+    public class Player : IPlayer {
+        public Guid PlayerID { get; set; }
+        public List<ICard> Cards { get; set; } = new();
 
-		public void SwapCards(ICard cardToRemove, ICard cardToInsert) {
-			throw new NotImplementedException();
-		}
+        public ICard PerformAction(ICard card) {
+            return card;
+        }
 
-		public void SwapCards(int cardPosition, ICard cardToInsert) {
-			throw new NotImplementedException();
-		}
-	}
+        public ICard SwapCards(ICard cardToRemove, ICard cardToInsert) {
+            var index = Cards.IndexOf(cardToRemove);
+            var cardRemoved = SwapCards(index, cardToInsert);
+            return cardRemoved;
+        }
+
+        public ICard SwapCards(int cardPosition, ICard cardToInsert) {
+            var cardRemoved = Cards[cardPosition];
+            Cards[cardPosition] = cardToInsert;
+            return cardRemoved;
+        }
+
+        public ICard RemoveCard(ICard cardToRemove) {
+            var didRemove = Cards.Remove(cardToRemove);
+            if (didRemove)
+                return cardToRemove;
+            this.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {PlayerID}");
+            return null;
+        }
+
+        public ICard RemoveCard(int cardPosition) {
+            var cardRemoved = Cards[cardPosition];
+            Cards.RemoveAt(cardPosition);
+            return cardRemoved;
+        }
+    }
 }
