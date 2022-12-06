@@ -25,9 +25,9 @@ namespace _Project.Game{
 			_deck = new Deck(_deckCreator);
 			var players = _playerCreator.Generate(3);
 
-			foreach (var player in players) {
+			foreach (var player in players) 
 				player.Cards = _deck.Draw(StartingHand).ToList();
-			}
+			
 		}
 
 		public bool JoinPlayer(IPlayer cardPlayer) {
