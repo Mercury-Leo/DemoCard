@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace _Project.AppUI.Components.Scripts {
     [RequireComponent(typeof(Button))]
-    public class UIButton : UIObject {
+    public abstract class UIButton : UIObject {
         protected Button button;
 
         public Action OnButtonClicked { get; set; }

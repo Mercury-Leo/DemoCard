@@ -9,7 +9,7 @@ namespace _Project.Core.Dealer.Interfaces {
 
 		public ICard Draw();
 
-		public ICard[] Draw(int amount);
+		public IEnumerable<ICard> Draw(int amount);
 
 		public void ReshuffleCards();
 	}

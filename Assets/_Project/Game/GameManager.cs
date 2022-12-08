@@ -22,6 +22,7 @@ namespace _Project.Game {
         public Action OnGameStart { get; set; }
         public Action OnGameEnd { get; set; }
         public Action<List<IPlayer>> OnInitializePlayers { get; set; }
+        public Action<IDeck> OnDeckDealt { get; set; }
 
         void Awake() {
             _activePlayers = new List<IPlayer>();
@@ -50,6 +51,7 @@ namespace _Project.Game {
         public void StartGame() {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
+            OnDeckDealt?.Invoke(_deck);
         }
     }
 }

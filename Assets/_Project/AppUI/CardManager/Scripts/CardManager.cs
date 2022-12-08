@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using _Project.AppUI.Card.Scripts;
+using _Project.AppUI.Deck.Scripts;
 using _Project.Game;
 using _Project.Game.Player.Interfaces;
 using Editor.Logger.Scripts;
@@ -10,6 +11,8 @@ namespace _Project.AppUI.CardManager.Scripts {
         [SerializeField] GameManager _gameManager;
 
         [SerializeField] List<CardViewHandler> _cardViewHandlers;
+
+        [SerializeField] DeckManager _deckManager;
 
         void OnValidate() {
             if (_gameManager is null)

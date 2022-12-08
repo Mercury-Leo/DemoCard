@@ -23,7 +23,7 @@ namespace _Project.Core.Dealer.Scripts {
             return null;
         }
 
-        public ICard[] Draw(int amount) {
+        public IEnumerable<ICard> Draw(int amount) {
             if (amount <= 0)
                 return null;
             var cards = new ICard[amount];
