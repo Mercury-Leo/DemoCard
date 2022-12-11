@@ -1,6 +1,4 @@
-using System;
 using _Project.Core.Input;
-using Editor.Logger.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -70,8 +68,8 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
 
 
         protected override void PointerEnterHandler(Transform draggedItem) {
-            base.PointerEnterHandler(draggedItem);
-            Container.UpdatedTransformPosition = transform.position;
+            //base.PointerEnterHandler(draggedItem);
+            //Container.UpdatedTransformPosition = transform.position;
         }
     }
 }

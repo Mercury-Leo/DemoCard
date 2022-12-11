@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Project.AppUI.Card.Scripts {
-    [RequireComponent(typeof(UIDraggableObject))]
+    [RequireComponent(typeof(UIDraggableBase))]
     public class CardHandler : UIButton {
         [SerializeField] TMP_Text _cardValue;
 
