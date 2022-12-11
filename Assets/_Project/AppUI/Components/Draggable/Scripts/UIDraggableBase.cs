@@ -38,5 +38,9 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
 
         protected virtual void PointerEnterHandler(Transform draggedItem) =>
             draggedItem.transform.SetSiblingIndex(transform.GetSiblingIndex());
+
+        protected virtual void DragHandler(Vector3 position) {
+            transform.position = position;
+        }
     }
 }

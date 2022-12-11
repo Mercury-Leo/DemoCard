@@ -1,25 +1,53 @@
+using System;
+using Editor.Logger.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace _Project.AppUI.Components.Draggable.Scripts {
     public class UIDraggableObject : UIDraggableBase {
+        BoundDraggableContainer Container {
+            get { return _container ??= (BoundDraggableContainer)ContainerBase; }
+        }
+
         BoundDraggableContainer _container;
 
-        protected override void Awake() {
-            base.Awake();
-            _container = (BoundDraggableContainer)ContainerBase;
-        }
-        
         protected void OnEnable() {
             OnObjectBeingHovered += PointerEnterHandler;
+            OnObjectBeingDragged += DragHandler;
         }
 
         protected void OnDisable() {
             OnObjectBeingHovered -= PointerEnterHandler;
+            OnObjectBeingDragged -= DragHandler;
+        }
+
+        void LateUpdate() {
+            if (Container.CurrentlyDraggedItem != gameObject)
+                return;
+
+            var input = GetInputPosition();
+
+            if (input is null)
+                return;
+
+            OnObjectBeingDragged?.Invoke((Vector3)input);
+        }
+
+        Vector3? GetInputPosition() {
+            Vector3? position;
+#if UNITY_EDITOR || UNITY_STANDALONE // Editor/PC mouse input
+            position = Input.mousePosition;
+#else
+            if (Input.touchCount <= 0 || Input.GetTouch(0).phase is not TouchPhase.Moved) return null;
+
+            position = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
+#endif
+            
+            return position;
         }
 
         public override void OnPointerEnter(PointerEventData eventData) {
-            var draggedItem = _container.CurrentlyDraggedItem;
+            var draggedItem = Container.CurrentlyDraggedItem;
 
             if (draggedItem is null || draggedItem == gameObject)
                 return;
@@ -28,11 +56,11 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         public override void OnBeginDrag(PointerEventData eventData) {
-            _container.CurrentlyDraggedItem = gameObject;
-            _container.UpdatedTransformPosition = transform.position;
+            Container.CurrentlyDraggedItem = gameObject;
+            Container.UpdatedTransformPosition = transform.position;
             childCanvasGroup.blocksRaycasts = false;
 
-            OnObjectBeginDrag?.Invoke(_container.CurrentSiblingIndex);
+            OnObjectBeginDrag?.Invoke(Container.CurrentSiblingIndex);
         }
 
         public override void OnDrag(PointerEventData eventData) {
@@ -40,14 +68,14 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         public override void OnEndDrag(PointerEventData eventData) {
-            if (_container.CurrentlyDraggedItem != gameObject)
+            if (Container.CurrentlyDraggedItem != gameObject)
                 return;
 
-            _container.CurrentlyDraggedItem.transform.position = _container.UpdatedTransformPosition;
-            _container.CurrentlyDraggedItem = null;
+            Container.CurrentlyDraggedItem.transform.position = Container.UpdatedTransformPosition;
+            Container.CurrentlyDraggedItem = null;
             childCanvasGroup.blocksRaycasts = true;
 
-            OnObjectEndDrag?.Invoke(_container.CurrentSiblingIndex);
+            OnObjectEndDrag?.Invoke(Container.CurrentSiblingIndex);
         }
 
         public override void OnSelect(BaseEventData eventData) { }
@@ -55,7 +83,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
 
         protected override void PointerEnterHandler(Transform draggedItem) {
             base.PointerEnterHandler(draggedItem);
-            _container.UpdatedTransformPosition = transform.position;
+            Container.UpdatedTransformPosition = transform.position;
         }
     }
 }

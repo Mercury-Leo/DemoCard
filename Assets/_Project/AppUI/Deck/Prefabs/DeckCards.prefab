@@ -60,6 +60,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3521791182192723067}
   - component: {fileID: 3521791182192723064}
+  - component: {fileID: 6776513921487085243}
   m_Layer: 5
   m_Name: DeckCards
   m_TagString: Untagged
@@ -103,6 +104,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pile: {fileID: 3521791183099274442}
   _discarded: {fileID: 3521791181506347313}
+--- !u!114 &6776513921487085243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521791182192723066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94e698ebeb268f44eb64b5c789e7ab65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3521791183099274444
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,6 +261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card
       objectReference: {fileID: 0}
+    - target: {fileID: 6588116784127274759, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
+      propertyPath: <ContainerBase>k__BackingField
+      value: 
+      objectReference: {fileID: 6776513921487085243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
 --- !u!224 &2092206436822350331 stripped
@@ -350,6 +367,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Card
       objectReference: {fileID: 0}
+    - target: {fileID: 6588116784127274759, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
+      propertyPath: <ContainerBase>k__BackingField
+      value: 
+      objectReference: {fileID: 6776513921487085243}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
 --- !u!224 &2092206437474955301 stripped
