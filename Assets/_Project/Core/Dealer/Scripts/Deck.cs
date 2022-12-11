@@ -3,6 +3,7 @@ using _Project.Core.Card.Interfaces;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Extensions.Collections;
 using Editor.Logger.Scripts;
+using static _Project.Core.CoreConventions;
 
 namespace _Project.Core.Dealer.Scripts {
     public class Deck : IDeck {
@@ -10,7 +11,7 @@ namespace _Project.Core.Dealer.Scripts {
         public Stack<ICard> DiscardedCards { get; set; }
 
         public Deck(IDeckCreator dealer) {
-            CardPile = new Stack<ICard>(dealer.Generate());
+            CardPile = new Stack<ICard>(dealer.Generate(DeckSize, SpecialValues));
             DiscardedCards = new Stack<ICard>();
         }
 

@@ -15,8 +15,7 @@ namespace _Project.Core{
 		public const int MaxCardValue = 13;
 		public const int MinCardValue = -1;
 		public const int DeckSize = 54;
-		public const int SpecialCards = 6;
-		
+
 		public static readonly int[] SpecialValues = { -1, -1, 0, 0, 13, 13 };
 
 		#region CardEffects
