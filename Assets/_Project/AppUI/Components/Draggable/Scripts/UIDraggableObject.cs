@@ -1,4 +1,5 @@
 using System;
+using _Project.Core.Input;
 using Editor.Logger.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,25 +26,12 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             if (Container.CurrentlyDraggedItem != gameObject)
                 return;
 
-            var input = GetInputPosition();
+            var input = MouseInput.GetPosition();
 
             if (input is null)
                 return;
 
             OnObjectBeingDragged?.Invoke((Vector3)input);
-        }
-
-        Vector3? GetInputPosition() {
-            Vector3? position;
-#if UNITY_EDITOR || UNITY_STANDALONE // Editor/PC mouse input
-            position = Input.mousePosition;
-#else
-            if (Input.touchCount <= 0 || Input.GetTouch(0).phase is not TouchPhase.Moved) return null;
-
-            position = new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, 0);
-#endif
-            
-            return position;
         }
 
         public override void OnPointerEnter(PointerEventData eventData) {
