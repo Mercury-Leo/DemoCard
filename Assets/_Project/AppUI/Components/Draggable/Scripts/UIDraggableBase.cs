@@ -20,7 +20,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         protected CanvasGroup childCanvasGroup;
         RectTransform _rectTransform;
 
-        public Action<GameObject> OnObjectBeingHovered { get; set; }
+        public Action<Transform> OnObjectBeingHovered { get; set; }
         public Action<int> OnObjectBeginDrag { get; set; }
         public Action<Vector3> OnObjectBeingDragged { get; set; }
         public Action<int> OnObjectEndDrag { get; set; }

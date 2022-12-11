@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Project.AppUI.Card.Scripts {
-    public class CardHandler : UIButtonDraggable {
+    [RequireComponent(typeof(UIDraggableObject))]
+    public class CardHandler : UIButton {
         [SerializeField] TMP_Text _cardValue;
 
         [SerializeField] Image _cover;
@@ -28,16 +29,25 @@ namespace _Project.AppUI.Card.Scripts {
             }
         }
 
-        bool _showValue;
-
         public Action<ICard> OnCardClicked { get; set; }
 
         ICard _card;
+        bool _showValue;
+        UIDraggableBase _draggableObject;
+
+        protected override void Awake() {
+            base.Awake();
+            TryGetComponent(out _draggableObject);
+        }
 
         public void SetCardData(ICard card) {
             _card = card;
             DisplayCardValue();
             ShowValue = false;
+        }
+
+        public void SetContainer(DraggableContainerBase container) {
+            _draggableObject.ContainerBase = container;
         }
 
         void DisplayCardValue() => CardValue = _card.Value.ToString();
