@@ -1381,7 +1381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _pile: {fileID: 1850914652}
   _discarded: {fileID: 220500647}
-  _gameManager: {fileID: 1242779304}
+  _gameManager: {fileID: 0}
 --- !u!4 &1999558873
 Transform:
   m_ObjectHideFlags: 0
@@ -1506,8 +1506,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3521791183099274442, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
       propertyPath: _card
-      value: 
-      objectReference: {fileID: 3303083291704169032, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
+      value: Card.prefab
+      objectReference: {fileID: 0}
     - target: {fileID: 3521791183099274442, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
       propertyPath: _container
       value: 
