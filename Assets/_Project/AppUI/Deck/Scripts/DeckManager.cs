@@ -11,7 +11,7 @@ namespace _Project.AppUI.Deck.Scripts {
         [SerializeField] DiscardedPileHandler _discarded;
 
         public void SetDeck(IDeck deck) {
-            
+            _pile.SetPile(deck.CardPile);
         }
     }
 }
