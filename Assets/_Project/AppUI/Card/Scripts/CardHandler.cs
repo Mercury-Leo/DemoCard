@@ -60,11 +60,10 @@ namespace _Project.AppUI.Card.Scripts {
                 return;
 
             this.LogSuccess($"hovering is {card._card.Value}");
-            ShowValue = true;
         }
 
         void OnObjectExitHover() {
-            ShowValue = false;
+            
         }
 
         public void SetCardData(ICard card) {
