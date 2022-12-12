@@ -11,7 +11,7 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace _Project.AppUI.Deck.Scripts {
     public class PileHandler : UIButton {
-        [SerializeField] AssetReferenceT<CardHandler> _card;
+        [SerializeField] AssetReference _card;
         [SerializeField] Transform _draggedZone;
         [SerializeField] DraggableContainerBase _container;
 
