@@ -2,6 +2,7 @@ using System;
 using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.Core.Card.Interfaces;
+using Editor.Logger.Scripts;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,6 +39,32 @@ namespace _Project.AppUI.Card.Scripts {
         protected override void Awake() {
             base.Awake();
             TryGetComponent(out _draggableObject);
+        }
+
+        protected override void OnEnable() {
+            base.OnEnable();
+            _draggableObject.OnObjectEnterHovered += OnObjectBeingHovered;
+            _draggableObject.OnObjectExitHover += OnObjectExitHover;
+        }
+
+        protected override void OnDisable() {
+            base.OnDisable();
+            _draggableObject.OnObjectEnterHovered -= OnObjectBeingHovered;
+            _draggableObject.OnObjectExitHover -= OnObjectExitHover;
+        }
+
+        void OnObjectBeingHovered(Transform hovering) {
+            this.LogWarning($"is being hovered {_card.Value}");
+            var card = hovering.GetComponent<CardHandler>();
+            if (card is null)
+                return;
+
+            this.LogSuccess($"hovering is {card._card.Value}");
+            ShowValue = true;
+        }
+
+        void OnObjectExitHover() {
+            ShowValue = false;
         }
 
         public void SetCardData(ICard card) {

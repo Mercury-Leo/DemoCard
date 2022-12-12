@@ -11,12 +11,12 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         BoundDraggableContainer _container;
 
         protected void OnEnable() {
-            OnObjectBeingHovered += PointerEnterHandler;
+            OnObjectEnterHovered += PointerEnterHandler;
             OnObjectBeingDragged += DragHandler;
         }
 
         protected void OnDisable() {
-            OnObjectBeingHovered -= PointerEnterHandler;
+            OnObjectEnterHovered -= PointerEnterHandler;
             OnObjectBeingDragged -= DragHandler;
         }
 
@@ -38,7 +38,11 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             if (draggedItem is null || draggedItem == gameObject)
                 return;
 
-            OnObjectBeingHovered?.Invoke(draggedItem.transform);
+            OnObjectEnterHovered?.Invoke(draggedItem.transform);
+        }
+
+        public override void OnPointerExit(PointerEventData eventData) {
+            OnObjectExitHover?.Invoke();
         }
 
         public override void OnBeginDrag(PointerEventData eventData) {

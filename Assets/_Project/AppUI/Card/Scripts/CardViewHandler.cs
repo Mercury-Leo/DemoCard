@@ -5,7 +5,7 @@ using Editor.Logger.Scripts;
 using UnityEngine;
 
 namespace _Project.AppUI.Card.Scripts {
-    [RequireComponent(typeof(BoundDraggableContainer))]
+    [RequireComponent(typeof(DraggableContainerBase))]
     public class CardViewHandler : MonoBehaviour {
         [Header("Components")] [SerializeField]
         GameObject _playerCards;

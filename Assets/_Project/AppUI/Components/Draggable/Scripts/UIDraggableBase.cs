@@ -20,7 +20,8 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         protected CanvasGroup childCanvasGroup;
         RectTransform _rectTransform;
 
-        public Action<Transform> OnObjectBeingHovered { get; set; }
+        public Action<Transform> OnObjectEnterHovered { get; set; }
+        public Action OnObjectExitHover { get; set; }
         public Action<int> OnObjectBeginDrag { get; set; }
         public Action<Vector3> OnObjectBeingDragged { get; set; }
         public Action<int> OnObjectEndDrag { get; set; }
@@ -35,6 +36,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         public abstract void OnEndDrag(PointerEventData eventData);
         public abstract void OnSelect(BaseEventData eventData);
         public abstract void OnPointerEnter(PointerEventData eventData);
+        public abstract void OnPointerExit(PointerEventData eventData);
 
         protected virtual void PointerEnterHandler(Transform draggedItem) =>
             draggedItem.transform.SetSiblingIndex(transform.GetSiblingIndex());
