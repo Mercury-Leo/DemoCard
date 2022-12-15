@@ -155,7 +155,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerCards: {fileID: 8820107367172398912}
-  _cardPrefab: {fileID: 3303083291704169032, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
+  _cardPrefab:
+    m_AssetGUID: ab5c51c3cf7127d4ea3620061ce052cb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
 --- !u!114 &7094768352203058745
 MonoBehaviour:
   m_ObjectHideFlags: 0

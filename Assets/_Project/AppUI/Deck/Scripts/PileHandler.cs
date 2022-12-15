@@ -6,13 +6,13 @@ using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.Core.Card.Interfaces;
 using Editor.Logger.Scripts;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace _Project.AppUI.Deck.Scripts {
     public class PileHandler : UIButton {
-        [SerializeField] string _card;
+        [AssetsOnly] [SerializeField] AssetReference _card;
         [SerializeField] Transform _draggedZone;
         [SerializeField] DraggableContainerBase _container;
 
@@ -32,7 +32,7 @@ namespace _Project.AppUI.Deck.Scripts {
         }
 
         void DrawCard() {
-            AddressableLoader.GetObjectByAddress(_card);
+            AddressableLoader.GetObjectByReference(_card);
             AddressableLoader.OnGameObjectLoaded += OnGameObjectLoaded;
         }
 
@@ -42,7 +42,7 @@ namespace _Project.AppUI.Deck.Scripts {
                 this.Log("Failed to pop card");
                 return;
             }
-            
+
             var card = go.GetComponent<CardHandler>();
             if (card is null)
                 return;
