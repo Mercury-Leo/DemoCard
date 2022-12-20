@@ -201,17 +201,59 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &220500647 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3521791181506347313, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
-  m_PrefabInstance: {fileID: 3521791181458412438}
+--- !u!1 &272024697
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 272024699}
+  - component: {fileID: 272024698}
+  m_Layer: 0
+  m_Name: '%$ Header'
+  m_TagString: EditorOnly
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &272024698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272024697}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e836ae908ffd9748ba4b4cc91fd95a2, type: 3}
+  m_Script: {fileID: 11500000, guid: cd08058c8f786114eb9ec6564be9957c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headerSettings:
+    headerText: Scene Loader
+    headerColor: {r: 0, g: 0.6313726, b: 0.6509804, a: 1}
+    editorOnly: 1
+    textAlignmentOptions: 1
+    fontStyleOptions: 0
+    fontSize: 15
+    fontColor: {r: 0, g: 0, b: 0, a: 1}
+    dropShadow: 0
+--- !u!4 &272024699
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272024697}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &731220536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +261,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1175434680}
     m_Modifications:
+    - target: {fileID: 8820107367427701763, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
     - target: {fileID: 8820107367427701772, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
       propertyPath: m_Name
       value: Card View (3)
@@ -385,6 +431,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1175434680}
     m_Modifications:
+    - target: {fileID: 8820107367427701763, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
     - target: {fileID: 8820107367427701772, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
       propertyPath: m_Name
       value: Card View (2)
@@ -576,6 +626,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4379fb6f8cb5c744988cafa7e2ae1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _addressableLoader: {fileID: 1989653496}
 --- !u!4 &1242779305
 Transform:
   m_ObjectHideFlags: 0
@@ -598,6 +649,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1175434680}
     m_Modifications:
+    - target: {fileID: 8820107367427701763, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
     - target: {fileID: 8820107367427701772, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
       propertyPath: m_Name
       value: Card View (4)
@@ -816,6 +871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1175434680}
     m_Modifications:
+    - target: {fileID: 8820107367427701763, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
     - target: {fileID: 8820107367427701772, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
       propertyPath: m_Name
       value: Card View (1)
@@ -958,7 +1017,7 @@ MonoBehaviour:
   - {fileID: 1128763319}
   - {fileID: 731220538}
   - {fileID: 1266685179}
-  _deckManager: {fileID: 1999558872}
+  _deckManager: {fileID: 1917250163}
 --- !u!4 &1475528485
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,17 +1228,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3521791183099274444, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
   m_PrefabInstance: {fileID: 3521791181458412438}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1850914652 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3521791183099274442, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
-  m_PrefabInstance: {fileID: 3521791181458412438}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1850914650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb535db7b7131b45be35b5ff424f40f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1850914653
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1350,7 +1398,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1999558871
+--- !u!114 &1917250163 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3521791182192723064, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
+  m_PrefabInstance: {fileID: 3521791181458412438}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61b74d141bb04ac499e5018761d2c8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1989653495
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1358,44 +1417,48 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1999558873}
-  - component: {fileID: 1999558872}
+  - component: {fileID: 1989653497}
+  - component: {fileID: 1989653496}
   m_Layer: 0
-  m_Name: DeckManager
+  m_Name: SceneLoader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1999558872
+  m_IsActive: 1
+--- !u!114 &1989653496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999558871}
+  m_GameObject: {fileID: 1989653495}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b74d141bb04ac499e5018761d2c8d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4dcf8a29b062f9742ba3902b3ebcb9b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pile: {fileID: 1850914652}
-  _discarded: {fileID: 220500647}
-  _gameManager: {fileID: 0}
---- !u!4 &1999558873
+  _loader: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
+  _cardPrefab:
+    m_AssetGUID: ab5c51c3cf7127d4ea3620061ce052cb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  _cardLoader: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
+--- !u!4 &1989653497
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1999558871}
+  m_GameObject: {fileID: 1989653495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3521791181458412438
 PrefabInstance:
@@ -1509,6 +1572,10 @@ PrefabInstance:
       value: Card.prefab
       objectReference: {fileID: 0}
     - target: {fileID: 3521791183099274442, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
+    - target: {fileID: 3521791183099274442, guid: 23b8a04e1605b034aa4f74e3188bf4d8, type: 3}
       propertyPath: _container
       value: 
       objectReference: {fileID: 1175434681}
@@ -1533,6 +1600,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1175434680}
     m_Modifications:
+    - target: {fileID: 8820107367427701763, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
+      propertyPath: _loader
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
     - target: {fileID: 8820107367427701772, guid: a0876a8375b245b439790eabef2e50bd, type: 3}
       propertyPath: m_Name
       value: Card View
