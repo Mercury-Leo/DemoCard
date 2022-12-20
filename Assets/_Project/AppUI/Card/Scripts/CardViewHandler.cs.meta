@@ -5,7 +5,7 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - _playerCards: {instanceID: 0}
-  - _cardPrefab: {fileID: 3303083291704169032, guid: ab5c51c3cf7127d4ea3620061ce052cb, type: 3}
+  - _loader: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

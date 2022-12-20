@@ -1,20 +1,19 @@
 using System;
 using System.Collections.Generic;
-using _Project.AppUI.Card.Loader;
 using _Project.AppUI.Card.Scripts;
 using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
+using _Project.AppUI.SceneLoaders.CardGame.Scripts;
 using _Project.Core.Card.Interfaces;
 using Editor.Logger.Scripts;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace _Project.AppUI.Deck.Scripts {
     public class PileHandler : UIButton {
-        [AssetsOnly] [SerializeField] AssetReference _card;
         [SerializeField] Transform _draggedZone;
         [SerializeField] DraggableContainerBase _container;
+
+        [Header("Loader")] [SerializeField] CardGameLoaderSO _loader;
 
         public Action OnCardDrew { get; set; }
         public Action OnPileEmpty { get; set; }
@@ -32,20 +31,15 @@ namespace _Project.AppUI.Deck.Scripts {
         }
 
         void DrawCard() {
-            AddressableLoader.GetObjectByReference(_card);
-            AddressableLoader.OnGameObjectLoaded += OnGameObjectLoaded;
+            OnGameObjectLoaded(_loader.Card);
         }
 
-        void OnGameObjectLoaded(GameObject go) {
+        void OnGameObjectLoaded(CardHandler card) {
             if (!_pileCards.TryPop(out var cardResult)) {
                 OnPileEmpty?.Invoke();
                 this.Log("Failed to pop card");
                 return;
             }
-
-            var card = go.GetComponent<CardHandler>();
-            if (card is null)
-                return;
 
             var cardHandler = Instantiate(card, _draggedZone);
             cardHandler.SetContainer(_container);
@@ -53,7 +47,6 @@ namespace _Project.AppUI.Deck.Scripts {
             cardHandler.SetCardData(cardResult);
             cardHandler.ShowValue = true;
             OnCardDrew?.Invoke();
-            AddressableLoader.OnGameObjectLoaded -= OnGameObjectLoaded;
         }
 
         public void SetPile(Stack<ICard> cards) {
