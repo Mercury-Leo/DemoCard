@@ -36,10 +36,11 @@ namespace LeosClockworks.Editor.Tools {
                 var buttonName = _isBuildScenes ? "All Scenes" : "Build Scenes";
                 menu.AddItem(new GUIContent(buttonName), true, () => _isBuildScenes = !_isBuildScenes);
                 menu.AddSeparator(string.Empty);
-                if(_isBuildScenes) {
+                if (_isBuildScenes) {
                     CreateBuildScenes(menu);
                     return;
                 }
+
                 CreateAllScenes(menu);
             }
 
@@ -55,7 +56,7 @@ namespace LeosClockworks.Editor.Tools {
                 var activeScene = SceneManager.GetActiveScene();
 
                 var sceneGuids = AssetDatabase.FindAssets("t:scene", null);
-                
+
                 CreateScenes(menu, sceneGuids, activeScene);
             }
 
@@ -68,9 +69,11 @@ namespace LeosClockworks.Editor.Tools {
                         menu.AddDisabledItem(new GUIContent(sceneName));
                         continue;
                     }
-                    
-                    menu.AddItem(new GUIContent(sceneName + "/Single"), false, () => OpenScene(activeScene, path, OpenSceneMode.Single));
-                    menu.AddItem(new GUIContent(sceneName + "/Additive"), false, () => OpenScene(activeScene, path, OpenSceneMode.Additive));
+
+                    menu.AddItem(new GUIContent(sceneName + "/Single"), false,
+                        () => OpenScene(activeScene, path, OpenSceneMode.Single));
+                    menu.AddItem(new GUIContent(sceneName + "/Additive"), false,
+                        () => OpenScene(activeScene, path, OpenSceneMode.Additive));
                 }
 
                 menu.ShowAsContext();
