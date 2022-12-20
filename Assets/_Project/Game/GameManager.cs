@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Dealer.Scripts;
+using _Project.Core.SceneLoader.AddressableLoader.Scripts;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
@@ -11,6 +12,8 @@ using static _Project.Game.GameConventions;
 
 namespace _Project.Game {
     public class GameManager : MonoBehaviour {
+
+        [SerializeField] AddressableLoaderBase _addressableLoader;
         IPlayerCreator _playerCreator;
         IDeckCreator _deckCreator;
         IDeck _deck;
@@ -23,21 +26,28 @@ namespace _Project.Game {
         public Action OnGameEnd { get; set; }
         public Action<List<IPlayer>> OnInitializePlayers { get; set; }
         public Action<IDeck> OnDeckDealt { get; set; }
+        
+        void OnEnable() {
+            _addressableLoader.OnLoadingFinished += OnLoadingFinished;
+        }
 
-        void Awake() {
+        void OnDisable() {
+            _addressableLoader.OnLoadingFinished -= OnLoadingFinished;
+        }
+
+        void OnLoadingFinished() {
             _activePlayers = new List<IPlayer>();
             _playerCreator = new PlayerCreator();
             _deckCreator = new DeckCreator();
             _deck = new Deck(_deckCreator);
+            
             var players = _playerCreator.Generate(5);
-
+            
             foreach (var player in players) {
                 player.Cards = _deck.Draw(StartingHand).ToList();
                 _activePlayers.Add(player);
             }
-        }
-
-        void Start() {
+            
             StartGame();
         }
 
