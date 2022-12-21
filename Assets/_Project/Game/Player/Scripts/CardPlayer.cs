@@ -7,11 +7,18 @@ using Editor.Logger.Scripts;
 namespace _Project.Game.Player.Scripts {
     public class CardPlayer : IPlayer {
         public Guid PlayerID { get; set; }
-        public List<ICard> Cards { get; set; }
 
-        public void PopulateCards(IList<ICard> cards) {
-            foreach (var card in cards)
-                Cards.Add(card);
+        readonly List<ICard> _cards = new();
+
+        public void PopulateCards(IEnumerable<ICard> cards) {
+            foreach (var card in cards) {
+                card.OwnerID = PlayerID;
+                _cards.Add(card);
+            }
+        }
+
+        public IEnumerable<ICard> GetCards() {
+            return _cards;
         }
 
         public ICard PerformAction(ICard card) {
@@ -19,19 +26,19 @@ namespace _Project.Game.Player.Scripts {
         }
 
         public ICard SwapCards(ICard cardToRemove, ICard cardToInsert) {
-            var index = Cards.IndexOf(cardToRemove);
+            var index = _cards.IndexOf(cardToRemove);
             var cardRemoved = SwapCards(index, cardToInsert);
             return cardRemoved;
         }
 
         public ICard SwapCards(int cardPosition, ICard cardToInsert) {
-            var cardRemoved = Cards[cardPosition];
-            Cards[cardPosition] = cardToInsert;
+            var cardRemoved = _cards[cardPosition];
+            _cards[cardPosition] = cardToInsert;
             return cardRemoved;
         }
 
         public ICard RemoveCard(ICard cardToRemove) {
-            var didRemove = Cards.Remove(cardToRemove);
+            var didRemove = _cards.Remove(cardToRemove);
             if (didRemove)
                 return cardToRemove;
             this.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {PlayerID}");
@@ -39,8 +46,8 @@ namespace _Project.Game.Player.Scripts {
         }
 
         public ICard RemoveCard(int cardPosition) {
-            var cardRemoved = Cards[cardPosition];
-            Cards.RemoveAt(cardPosition);
+            var cardRemoved = _cards[cardPosition];
+            _cards.RemoveAt(cardPosition);
             return cardRemoved;
         }
     }

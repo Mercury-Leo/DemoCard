@@ -7,22 +7,16 @@ using Editor.Logger.Scripts;
 using UnityEngine;
 
 namespace _Project.AppUI.Card.Scripts {
-    [RequireComponent(typeof(DraggableContainerBase))]
     public class CardViewHandler : MonoBehaviour {
         [Header("Components")] [SerializeField]
         GameObject _playerCards;
 
+        [SerializeField] BoundDraggableContainer _container;
+
         [Header("Prefabs")] [SerializeField] CardGameLoaderSO _loader;
         
-        DraggableContainerBase _container;
-    
-        
         ICard[] _cards;
-
-        protected void Awake() {
-            TryGetComponent(out _container);
-        }
-
+        
         void OnValidate() {
             if (_playerCards is null)
                 this.LogWarning("Player Cards not assigned", this);

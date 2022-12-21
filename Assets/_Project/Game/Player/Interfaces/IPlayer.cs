@@ -4,13 +4,13 @@ using _Project.Core.Card.Interfaces;
 
 namespace _Project.Game.Player.Interfaces {
     public interface IPlayer {
-        public abstract Guid PlayerID { get; set; }
-        public abstract List<ICard> Cards { get; set; }
-        public abstract void PopulateCards(IList<ICard> cards);
-        public abstract ICard PerformAction(ICard card);
-        public abstract ICard SwapCards(ICard cardToRemove, ICard cardToInsert);
-        public abstract ICard SwapCards(int cardPosition, ICard cardToInsert);
-        public abstract ICard RemoveCard(ICard cardToRemove);
-        public abstract ICard RemoveCard(int cardPosition);
+        public Guid PlayerID { get; set; }
+        public void PopulateCards(IEnumerable<ICard> cards);
+        public IEnumerable<ICard> GetCards();
+        public ICard PerformAction(ICard card);
+        public ICard SwapCards(ICard cardToRemove, ICard cardToInsert);
+        public ICard SwapCards(int cardPosition, ICard cardToInsert);
+        public ICard RemoveCard(ICard cardToRemove);
+        public ICard RemoveCard(int cardPosition);
     }
 }

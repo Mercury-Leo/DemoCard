@@ -44,7 +44,7 @@ namespace _Project.Game {
             var players = _playerCreator.Generate(5);
             
             foreach (var player in players) {
-                player.Cards = _deck.Draw(StartingHand).ToList();
+                player.PopulateCards(_deck.Draw(StartingHand).ToList());
                 _activePlayers.Add(player);
             }
             

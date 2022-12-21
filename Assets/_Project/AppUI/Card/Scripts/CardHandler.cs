@@ -34,23 +34,23 @@ namespace _Project.AppUI.Card.Scripts {
 
         ICard _card;
         bool _showValue;
-        UIDraggableBase _draggableObject;
+        UIDraggableBase _draggedObject;
 
         protected override void Awake() {
             base.Awake();
-            TryGetComponent(out _draggableObject);
+            TryGetComponent(out _draggedObject);
         }
 
         protected override void OnEnable() {
             base.OnEnable();
-            _draggableObject.OnObjectEnterHovered += OnObjectBeingHovered;
-            _draggableObject.OnObjectExitHover += OnObjectExitHover;
+            _draggedObject.OnObjectEnterHovered += OnObjectBeingHovered;
+            _draggedObject.OnObjectExitHover += OnObjectExitHover;
         }
 
         protected override void OnDisable() {
             base.OnDisable();
-            _draggableObject.OnObjectEnterHovered -= OnObjectBeingHovered;
-            _draggableObject.OnObjectExitHover -= OnObjectExitHover;
+            _draggedObject.OnObjectEnterHovered -= OnObjectBeingHovered;
+            _draggedObject.OnObjectExitHover -= OnObjectExitHover;
         }
 
         void OnObjectBeingHovered(Transform hovering) {
@@ -60,6 +60,9 @@ namespace _Project.AppUI.Card.Scripts {
                 return;
 
             this.LogSuccess($"hovering is {card._card.Value}");
+            
+            if(card._card.OwnerID.Equals(_card.OwnerID))
+                this.LogSuccess("Valid move!");
         }
 
         void OnObjectExitHover() {
@@ -73,7 +76,7 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         public void SetContainer(DraggableContainerBase container) {
-            _draggableObject.ContainerBase = container;
+            _draggedObject.ContainerBase = container;
         }
 
         void DisplayCardValue() => CardValue = _card.Value.ToString();
