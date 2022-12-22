@@ -2,8 +2,10 @@ using System;
 
 namespace _Project.Core.Card.Interfaces {
     public interface ICard {
-        public abstract int Value { get; set; }
-        public abstract CoreConventions.CardEffect CardEffect { get; set; }
-        public abstract Guid OwnerID { get; set; }
+        public int Value { get; set; }
+        public CoreConventions.CardEffect CardEffect { get; set; }
+        public Guid OwnerID { get; set; }
+        
+        public Action OnValueChanged { get; set; }
     }
 }
