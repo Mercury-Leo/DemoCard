@@ -6,9 +6,21 @@ namespace _Project.Core.Card.Scripts {
     public class CardData : ICard {
         #region Properties
 
-        public int Value { get; set; }
+        public int Value {
+            get => _value;
+            set {
+                _value = value;
+                CardEffect = CardExtensions.ConvertToCardEffect(value);
+                OnValueChanged?.Invoke();
+            }
+        }
+
         public CoreConventions.CardEffect CardEffect { get; set; }
         public Guid OwnerID { get; set; }
+        
+        public Action OnValueChanged { get; set; }
+
+        int _value;
 
         #endregion
 
@@ -16,7 +28,6 @@ namespace _Project.Core.Card.Scripts {
 
         public CardData(int value) {
             Value = value;
-            CardEffect = CardExtensions.ConvertToCardEffect(value);
         }
 
         #endregion
