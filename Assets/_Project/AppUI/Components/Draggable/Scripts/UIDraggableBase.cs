@@ -22,9 +22,10 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
 
         public Action<Transform> OnObjectEnterHovered { get; set; }
         public Action OnObjectExitHover { get; set; }
-        public Action<int> OnObjectBeginDrag { get; set; }
+        public Action<Transform> OnObjectBeginDrag { get; set; }
         public Action<Vector3> OnObjectBeingDragged { get; set; }
-        public Action<int> OnObjectEndDrag { get; set; }
+        public Action OnObjectEndDrag { get; set; }
+        public Action<Transform> OnObjectBeingDropped { get; set; }
 
         protected virtual void Awake() {
             TryGetComponent(out selectable);
@@ -37,6 +38,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         public abstract void OnSelect(BaseEventData eventData);
         public abstract void OnPointerEnter(PointerEventData eventData);
         public abstract void OnPointerExit(PointerEventData eventData);
+        public abstract void OnDrop(PointerEventData eventData);
 
         protected virtual void PointerEnterHandler(Transform draggedItem) =>
             draggedItem.transform.SetSiblingIndex(transform.GetSiblingIndex());
