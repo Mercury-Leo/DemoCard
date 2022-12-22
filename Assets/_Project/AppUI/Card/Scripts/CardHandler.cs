@@ -43,36 +43,53 @@ namespace _Project.AppUI.Card.Scripts {
 
         protected override void OnEnable() {
             base.OnEnable();
-            _draggedObject.OnObjectEnterHovered += OnObjectBeingHovered;
+            _draggedObject.OnObjectEnterHovered += ObjectBeingHovered;
             _draggedObject.OnObjectExitHover += OnObjectExitHover;
+            _draggedObject.OnObjectBeingDropped += ObjectDropped;
         }
 
         protected override void OnDisable() {
             base.OnDisable();
-            _draggedObject.OnObjectEnterHovered -= OnObjectBeingHovered;
+            _draggedObject.OnObjectEnterHovered -= ObjectBeingHovered;
             _draggedObject.OnObjectExitHover -= OnObjectExitHover;
+            _draggedObject.OnObjectBeingDropped -= ObjectDropped;
         }
 
-        void OnObjectBeingHovered(Transform hovering) {
+        protected void OnDestroy() {
+            _card.OnValueChanged -= OnValueChanged;
+        }
+
+        void ObjectBeingHovered(Transform hovering) {
             this.LogWarning($"is being hovered {_card.Value}");
-            var card = hovering.GetComponent<CardHandler>();
-            if (card is null)
-                return;
+            var card = GetCard(hovering);
 
             this.LogSuccess($"hovering is {card._card.Value}");
-            
-            if(card._card.OwnerID.Equals(_card.OwnerID))
+
+            if (card._card.OwnerID.Equals(_card.OwnerID))
                 this.LogSuccess("Valid move!");
         }
 
-        void OnObjectExitHover() {
+        void OnObjectExitHover() { }
+
+        void ObjectDropped(Transform obj) {
+            if (obj == transform)
+                return;
             
+            var card = GetCard(obj);
+
+            var value = card._card.Value;
+            var myValue = _card.Value;
+
+            _card.Value = value;
+            card._card.Value = myValue;
         }
+
 
         public void SetCardData(ICard card) {
             _card = card;
             DisplayCardValue();
             ShowValue = false;
+            _card.OnValueChanged += OnValueChanged;
         }
 
         public void SetContainer(DraggableContainerBase container) {
@@ -81,9 +98,25 @@ namespace _Project.AppUI.Card.Scripts {
 
         void DisplayCardValue() => CardValue = _card.Value.ToString();
 
+        void OnValueChanged() {
+            DisplayCardValue();
+        }
+
         protected override void ButtonClicked() {
             base.ButtonClicked();
             OnCardClicked?.Invoke(_card);
+        }
+
+        CardHandler GetCard(Transform trans) {
+            if (trans is null)
+                return null;
+
+            var card = trans.GetComponent<CardHandler>();
+
+            if (card is null)
+                return null;
+
+            return card;
         }
     }
 }
