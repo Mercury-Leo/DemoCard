@@ -70,10 +70,16 @@ namespace LeosClockworks.Editor.Tools {
                         continue;
                     }
 
-                    menu.AddItem(new GUIContent(sceneName + "/Single"), false,
+                    if (SceneSelectionOverlaySettingsProvider.AdditiveOptionEnabled) {
+                        menu.AddItem(new GUIContent(sceneName + "/Single"), false,
+                            () => OpenScene(activeScene, path, OpenSceneMode.Single));
+                        menu.AddItem(new GUIContent(sceneName + "/Additive"), false,
+                            () => OpenScene(activeScene, path, OpenSceneMode.Additive));
+                        return;
+                    }
+
+                    menu.AddItem(new GUIContent(sceneName), false,
                         () => OpenScene(activeScene, path, OpenSceneMode.Single));
-                    menu.AddItem(new GUIContent(sceneName + "/Additive"), false,
-                        () => OpenScene(activeScene, path, OpenSceneMode.Additive));
                 }
 
                 menu.ShowAsContext();
