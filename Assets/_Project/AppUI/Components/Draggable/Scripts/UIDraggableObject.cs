@@ -4,6 +4,10 @@ using UnityEngine.EventSystems;
 
 namespace _Project.AppUI.Components.Draggable.Scripts {
     public class UIDraggableObject : UIDraggableBase {
+
+        Transform _draggedParent;
+        int _draggedIndex;
+        
         BoundDraggableContainer Container {
             get { return _container ??= (BoundDraggableContainer)ContainerBase; }
         }
@@ -45,12 +49,25 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             OnObjectExitHover?.Invoke();
         }
 
+        public override void OnDrop(PointerEventData eventData) {
+            var draggedItem = Container.CurrentlyDraggedItem;
+
+            if (draggedItem is null || draggedItem == gameObject)
+                return;
+            
+            OnObjectBeingDropped?.Invoke(draggedItem.transform);
+        }
+
         public override void OnBeginDrag(PointerEventData eventData) {
             Container.CurrentlyDraggedItem = gameObject;
             Container.UpdatedTransformPosition = transform.position;
             childCanvasGroup.blocksRaycasts = false;
 
-            OnObjectBeginDrag?.Invoke(Container.CurrentSiblingIndex);
+            OnObjectBeginDrag?.Invoke(Container.CurrentlyDraggedItem.transform);
+            _draggedParent = transform.parent;
+            _draggedIndex = transform.GetSiblingIndex();
+            transform.SetParent(transform.root);
+            transform.SetAsLastSibling();
         }
 
         public override void OnDrag(PointerEventData eventData) {
@@ -64,8 +81,10 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             Container.CurrentlyDraggedItem.transform.position = Container.UpdatedTransformPosition;
             Container.CurrentlyDraggedItem = null;
             childCanvasGroup.blocksRaycasts = true;
-
-            OnObjectEndDrag?.Invoke(Container.CurrentSiblingIndex);
+            transform.SetParent(_draggedParent);
+            transform.SetSiblingIndex(_draggedIndex);
+            
+            OnObjectEndDrag?.Invoke();
         }
 
         public override void OnSelect(BaseEventData eventData) { }
