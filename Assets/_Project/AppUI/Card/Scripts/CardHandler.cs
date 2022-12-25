@@ -3,6 +3,7 @@ using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.Core.Card.Interfaces;
 using Editor.Logger.Scripts;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,11 @@ namespace _Project.AppUI.Card.Scripts {
         [SerializeField] TMP_Text _cardValue;
 
         [SerializeField] Image _cover;
+        
+        [Header("Card Data")]
+        
+        [ShowInInspector] int _cardDataValue;
+        [ShowInInspector] Guid _cardID;
 
         string CardValue {
             set {
@@ -74,7 +80,7 @@ namespace _Project.AppUI.Card.Scripts {
         void ObjectDropped(Transform obj) {
             if (obj == transform)
                 return;
-            
+
             var card = GetCard(obj);
 
             var value = card._card.Value;
@@ -90,6 +96,8 @@ namespace _Project.AppUI.Card.Scripts {
             DisplayCardValue();
             ShowValue = false;
             _card.OnValueChanged += OnValueChanged;
+            _cardDataValue = _card.Value;
+            _cardID = _card.OwnerID;
         }
 
         public void SetContainer(DraggableContainerBase container) {
