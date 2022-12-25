@@ -1,9 +1,12 @@
-using UnityEngine;
+namespace _Project.AppUI.Deck.Scripts {
+    public class DiscardedPileHandler : CardPileBase {
+        protected override void DrawCard() {
+            var card = GetCard();
 
-namespace _Project.AppUI.Deck.Scripts{
-	public class DiscardedPileHandler : MonoBehaviour{
-		void Awake(){
-			
-		}
-	}
+            if (card is null)
+                return;
+            
+            
+        }
+    }
 }
