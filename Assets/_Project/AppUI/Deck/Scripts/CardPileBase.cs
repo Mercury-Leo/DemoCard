@@ -46,6 +46,9 @@ namespace _Project.AppUI.Deck.Scripts {
         }
 
         protected ICard GetCard() {
+            if (PileCards is null)
+                return null;
+
             if (PileCards.TryPop(out var cardResult)) return cardResult;
 
             OnPileEmpty?.Invoke();
