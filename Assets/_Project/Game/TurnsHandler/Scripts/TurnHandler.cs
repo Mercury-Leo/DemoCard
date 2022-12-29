@@ -21,7 +21,7 @@ namespace _Project.Game.TurnsHandler.Scripts {
             
         }
 
-        public void OnTurnEnded() {
+        public void EndTurn() {
             _turnManager.NextTurn(GetNextTurn());
         }
 
