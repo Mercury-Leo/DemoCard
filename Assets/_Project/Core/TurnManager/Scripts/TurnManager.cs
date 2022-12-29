@@ -43,12 +43,17 @@ namespace _Project.Core.TurnManager.Scripts {
             _timer.AddTime(_currentTurn.TimeLimit, true);
         }
 
-        public void StopTurn() {
+        public void EndTurn() {
             if (_timerRoutine is null)
                 return;
 
             StopCoroutine(_timerRoutine);
             _timer.StopTimer();
+        }
+
+        public void NextTurn(ITurn turn) {
+            EndTurn();
+            StartTurn(turn);
         }
 
         void OnTimerFinished() {
