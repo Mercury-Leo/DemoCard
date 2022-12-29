@@ -4,7 +4,6 @@ using _Project.Core.Card.Interfaces;
 using _Project.Core.Card.Scripts;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Extensions.Collections;
-using static _Project.Core.CoreConventions;
 
 namespace _Project.Core.Dealer.Scripts {
     public class DeckCreator : IDeckCreator {
