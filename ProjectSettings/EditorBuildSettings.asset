@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/SampleScene.unity
+    path: 
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/_Project/Scenes/CardGame.unity
+    guid: 761c94fd212954f40beed75d679b7344
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3ddc15ed83838f54c974f848d91502b3, type: 2}
