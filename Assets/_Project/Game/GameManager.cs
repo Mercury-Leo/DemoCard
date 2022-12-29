@@ -66,7 +66,7 @@ namespace _Project.Game {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
             OnDeckDealt?.Invoke(_deck);
-            _turnManager.BeginTurn();
+            //_turnManager.BeginTurn();
         }
     }
 }
