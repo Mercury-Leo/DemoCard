@@ -4,6 +4,7 @@ using System.Linq;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Dealer.Scripts;
 using _Project.Core.SceneLoader.AddressableLoader.Scripts;
+using _Project.Core.TurnManager.Scripts;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
@@ -14,6 +15,9 @@ namespace _Project.Game {
     public class GameManager : MonoBehaviour {
 
         [SerializeField] AddressableLoaderBase _addressableLoader;
+
+        [SerializeField] TurnManager _turnManager;
+        
         IPlayerCreator _playerCreator;
         IDeckCreator _deckCreator;
         IDeck _deck;
@@ -62,6 +66,7 @@ namespace _Project.Game {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
             OnDeckDealt?.Invoke(_deck);
+            _turnManager.BeginTurn();
         }
     }
 }
