@@ -20,7 +20,6 @@ namespace _Project.Core.TurnManager.Scripts {
             _timer.OnTimerFinished += OnTimerFinished;
             _timer.OnTimerBegin += OnTimerBegin;
             _timer.OnTimerEnd += OnTimerEnd;
-            _timer.CurrentTime += time => Debug.Log($"current time: {time:F1}");
         }
 
         void OnDisable() {
