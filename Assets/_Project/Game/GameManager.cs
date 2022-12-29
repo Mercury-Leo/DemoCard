@@ -8,6 +8,7 @@ using _Project.Core.TurnManager.Scripts;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
+using _Project.Game.TurnsHandler.Scripts;
 using UnityEngine;
 using static _Project.Game.GameConventions;
 
@@ -17,6 +18,8 @@ namespace _Project.Game {
         [SerializeField] AddressableLoaderBase _addressableLoader;
 
         [SerializeField] TurnManager _turnManager;
+
+        [SerializeField] TurnHandler _turnsHandler;
         
         IPlayerCreator _playerCreator;
         IDeckCreator _deckCreator;
@@ -66,7 +69,8 @@ namespace _Project.Game {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
             OnDeckDealt?.Invoke(_deck);
-            //_turnManager.BeginTurn();
+            _turnsHandler.AddPlayers(_activePlayers);
+            _turnsHandler.StartTurns();
         }
     }
 }
