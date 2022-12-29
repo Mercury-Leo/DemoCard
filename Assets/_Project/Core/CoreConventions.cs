@@ -1,3 +1,6 @@
+using _Project.Core.Time.Interfaces;
+using _Project.Core.Time.Scripts;
+
 namespace _Project.Core{
 	public static class CoreConventions {
 
@@ -29,5 +32,7 @@ namespace _Project.Core{
 		}
 
 		#endregion
+
+		public static readonly ITimerProvider TimerProvider = new MonoTimerProvider();
 	}
 }
