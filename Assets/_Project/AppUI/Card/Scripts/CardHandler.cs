@@ -14,11 +14,19 @@ namespace _Project.AppUI.Card.Scripts {
         [SerializeField] TMP_Text _cardValue;
 
         [SerializeField] Image _cover;
-        
-        [Header("Card Data")]
-        
-        [ShowInInspector] int _cardDataValue;
+
+        [Header("Card Data")] [ShowInInspector]
+        int _cardDataValue;
+
         [ShowInInspector] Guid _cardID;
+
+        public bool IsPlayerActive {
+            get => _isPlayerActive;
+            set {
+                _isPlayerActive = value;
+                _draggedObject.CanBeDragged = value;
+            }
+        }
 
         string CardValue {
             set {
@@ -38,6 +46,7 @@ namespace _Project.AppUI.Card.Scripts {
 
         public Action<ICard> OnCardClicked { get; set; }
 
+        bool _isPlayerActive;
         ICard _card;
         bool _showValue;
         UIDraggableBase _draggedObject;
