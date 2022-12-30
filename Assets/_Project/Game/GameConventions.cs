@@ -5,6 +5,6 @@ namespace _Project.Game {
 
 		public const int StartingHand = 4;
 
-		public const float TurnTime = 60f;
+		public const float TurnTime = 10f;
 	}
 }
