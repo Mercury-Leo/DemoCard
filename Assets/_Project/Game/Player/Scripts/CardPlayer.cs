@@ -6,13 +6,13 @@ using Editor.Logger.Scripts;
 
 namespace _Project.Game.Player.Scripts {
     public class CardPlayer : IPlayer {
-        public Guid PlayerID { get; set; }
+        public Guid ID { get; set; }
 
         readonly List<ICard> _cards = new();
 
         public void PopulateCards(IEnumerable<ICard> cards) {
             foreach (var card in cards) {
-                card.OwnerID = PlayerID;
+                card.OwnerID = ID;
                 _cards.Add(card);
             }
         }
@@ -41,7 +41,7 @@ namespace _Project.Game.Player.Scripts {
             var didRemove = _cards.Remove(cardToRemove);
             if (didRemove)
                 return cardToRemove;
-            this.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {PlayerID}");
+            this.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {ID}");
             return null;
         }
 
