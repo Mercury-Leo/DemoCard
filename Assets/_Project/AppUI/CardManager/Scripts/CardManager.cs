@@ -31,7 +31,7 @@ namespace _Project.AppUI.CardManager.Scripts {
             for (var i = 0; i < players.Count; i++) {
                 if (players[i] is null)
                     return;
-                _cardViewHandlers[i].SetPlayerHand(players[i].GetCards());
+                _cardViewHandlers[i].SetPlayer(players[i]);
             }
         }
     }
