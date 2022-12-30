@@ -11,6 +11,8 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
     public abstract class UIDraggableBase : MonoBehaviour, IUIDraggable, ISelectHandler {
         [field: SerializeField, SerializeReference]
         public DraggableContainerBase ContainerBase { get; set; }
+        
+        public bool CanBeDragged { get; set; }
 
         protected RectTransform DraggableRectTransform {
             get { return _rectTransform ??= GetComponent<RectTransform>(); }
