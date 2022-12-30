@@ -2,8 +2,8 @@ using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Project.AppUI.PlayerID.Scripts {
-    public class PlayerIDHolder : MonoBehaviour {
+namespace _Project.AppUI.IDHolders.Scripts {
+    public class IDHolder : MonoBehaviour {
         [ShowInInspector] public Guid PlayerID { get; private set; }
 
         public bool IsActivePlayer {
@@ -11,16 +11,14 @@ namespace _Project.AppUI.PlayerID.Scripts {
             set {
                 _isActivePlayer = value;
                 if (value)
-                    OnPlayerActive?.Invoke(PlayerID);
+                    OnPlayerActive?.Invoke(PlayerID, true);
                 if(!value)
-                    OnPlayerDeActive?.Invoke(PlayerID);
+                    OnPlayerActive?.Invoke(PlayerID, false);
             }
         }
 
-        public Action<Guid> OnPlayerActive { get; set; }
+        public Action<Guid, bool> OnPlayerActive { get; set; }
         
-        public Action<Guid> OnPlayerDeActive { get; set; }
-
         bool _isActivePlayer;
 
         public void SetID(Guid playerID) {
