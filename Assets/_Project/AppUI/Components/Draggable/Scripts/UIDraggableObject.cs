@@ -4,10 +4,9 @@ using UnityEngine.EventSystems;
 
 namespace _Project.AppUI.Components.Draggable.Scripts {
     public class UIDraggableObject : UIDraggableBase {
-
         Transform _draggedParent;
         int _draggedIndex;
-        
+
         BoundDraggableContainer Container {
             get { return _container ??= (BoundDraggableContainer)ContainerBase; }
         }
@@ -25,6 +24,9 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         void LateUpdate() {
+            if (!CanBeDragged)
+                return;
+
             if (Container.CurrentlyDraggedItem != gameObject)
                 return;
 
@@ -37,6 +39,9 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         public override void OnPointerEnter(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             var draggedItem = Container.CurrentlyDraggedItem;
 
             if (draggedItem is null || draggedItem == gameObject)
@@ -46,19 +51,28 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         public override void OnPointerExit(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             OnObjectExitHover?.Invoke();
         }
 
         public override void OnDrop(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             var draggedItem = Container.CurrentlyDraggedItem;
 
             if (draggedItem is null || draggedItem == gameObject)
                 return;
-            
+
             OnObjectBeingDropped?.Invoke(draggedItem.transform);
         }
 
         public override void OnBeginDrag(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             Container.CurrentlyDraggedItem = gameObject;
             Container.UpdatedTransformPosition = transform.position;
             childCanvasGroup.blocksRaycasts = false;
@@ -71,10 +85,16 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         }
 
         public override void OnDrag(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             OnObjectBeingDragged?.Invoke(eventData.position);
         }
 
         public override void OnEndDrag(PointerEventData eventData) {
+            if (!CanBeDragged)
+                return;
+
             if (Container.CurrentlyDraggedItem != gameObject)
                 return;
 
@@ -83,14 +103,20 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             childCanvasGroup.blocksRaycasts = true;
             transform.SetParent(_draggedParent);
             transform.SetSiblingIndex(_draggedIndex);
-            
+
             OnObjectEndDrag?.Invoke();
         }
 
-        public override void OnSelect(BaseEventData eventData) { }
+        public override void OnSelect(BaseEventData eventData) {
+            if (!CanBeDragged)
+                return;
+        }
 
 
         protected override void PointerEnterHandler(Transform draggedItem) {
+            if (!CanBeDragged)
+                return;
+
             //base.PointerEnterHandler(draggedItem);
             //Container.UpdatedTransformPosition = transform.position;
         }
