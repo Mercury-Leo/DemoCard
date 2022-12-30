@@ -10,7 +10,7 @@ namespace _Project.Game.PlayerUtility.Scripts {
             var players = new IPlayer[playersToCreate];
             for (var i = 0; i < playersToCreate; i++) {
                 players[i] = new CardPlayer();
-                players[i].PlayerID = Guid.NewGuid();
+                players[i].ID = Guid.NewGuid();
             }
             return players;
         }
