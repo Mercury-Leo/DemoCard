@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.Core.TurnManager.Interfaces;
@@ -12,13 +13,15 @@ namespace _Project.Game.TurnsHandler.Scripts {
 
         readonly Dictionary<IPlayer, ITurn> _playerTurns = new();
         int _turnIndex;
+        
+        public Action<Guid> OnPlayerTurn { get; set; }
 
         void OnEnable() {
-            
+            _turnManager.OnTurnLose += EndTurn;
         }
 
         void OnDisable() {
-            
+            _turnManager.OnTurnLose -= EndTurn;
         }
 
         public void EndTurn() {
@@ -55,21 +58,32 @@ namespace _Project.Game.TurnsHandler.Scripts {
         }
 
         void CreatePlayerTurn(IPlayer player) {
-            _playerTurns.Add(player, new TurnPlaceholder(TurnTime, player.PlayerID));
+            _playerTurns.Add(player, new TurnPlaceholder(TurnTime, player.ID));
         }
 
         ITurn GetNextTurn() {
             var turn = _playerTurns.Values.ElementAt(_turnIndex);
 
-            if (turn is null)
-                return null;
-
-            _turnIndex++;
-
-            if (_turnIndex >= _playerTurns.Count)
-                _turnIndex = 0;
+            // If a user is not online, try move to next player
+            while (turn is null) {
+                TryIncrementTurnIndex();
+                if (_turnIndex >= _playerTurns.Count)
+                    return null;
+                turn = _playerTurns.Values.ElementAt(_turnIndex);
+            }
+            
+            OnPlayerTurn?.Invoke(turn.UserID);
+            
+            TryIncrementTurnIndex();
 
             return turn;
+        }
+
+        void TryIncrementTurnIndex() {
+            _turnIndex++;
+            
+            if (_turnIndex >= _playerTurns.Count)
+                _turnIndex = 0;
         }
     }
 }
