@@ -4,7 +4,6 @@ using System.Linq;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Dealer.Scripts;
 using _Project.Core.SceneLoader.AddressableLoader.Scripts;
-using _Project.Core.TurnManager.Scripts;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
@@ -17,15 +16,14 @@ namespace _Project.Game {
 
         [SerializeField] AddressableLoaderBase _addressableLoader;
 
-        [SerializeField] TurnManager _turnManager;
-
         [SerializeField] TurnHandler _turnsHandler;
-        
+
         IPlayerCreator _playerCreator;
         IDeckCreator _deckCreator;
         IDeck _deck;
 
         List<IPlayer> _activePlayers;
+        Guid _activePlayer;
 
         public bool CanJoinGame { get; private set; }
 
@@ -35,27 +33,13 @@ namespace _Project.Game {
         public Action<IDeck> OnDeckDealt { get; set; }
         
         void OnEnable() {
-            _addressableLoader.OnLoadingFinished += OnLoadingFinished;
+            _addressableLoader.OnLoadingFinished += LoadingFinished;
+            _turnsHandler.OnPlayerTurn += PlayerTurn;
         }
 
         void OnDisable() {
-            _addressableLoader.OnLoadingFinished -= OnLoadingFinished;
-        }
-
-        void OnLoadingFinished() {
-            _activePlayers = new List<IPlayer>();
-            _playerCreator = new PlayerCreator();
-            _deckCreator = new DeckCreator();
-            _deck = new Deck(_deckCreator);
-            
-            var players = _playerCreator.Generate(5);
-            
-            foreach (var player in players) {
-                player.PopulateCards(_deck.Draw(StartingHand).ToList());
-                _activePlayers.Add(player);
-            }
-            
-            StartGame();
+            _addressableLoader.OnLoadingFinished -= LoadingFinished;
+            _turnsHandler.OnPlayerTurn -= PlayerTurn;
         }
 
         public bool JoinPlayer(IPlayer cardPlayer) {
@@ -65,12 +49,33 @@ namespace _Project.Game {
             return true;
         }
 
-        public void StartGame() {
+        void LoadingFinished() {
+            _activePlayers = new List<IPlayer>();
+            _playerCreator = new PlayerCreator();
+            _deckCreator = new DeckCreator();
+            _deck = new Deck(_deckCreator);
+            
+            var players = _playerCreator.Generate(MaxPlayers);
+            
+            foreach (var player in players) {
+                player.PopulateCards(_deck.Draw(StartingHand).ToList());
+                _activePlayers.Add(player);
+            }
+            
+            StartGame();
+        }
+        
+        void StartGame() {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
             OnDeckDealt?.Invoke(_deck);
             _turnsHandler.AddPlayers(_activePlayers);
             _turnsHandler.StartTurns();
+            OnGameStart?.Invoke();
+        }
+        
+        void PlayerTurn(Guid id) {
+            _activePlayer = id;
         }
     }
 }
