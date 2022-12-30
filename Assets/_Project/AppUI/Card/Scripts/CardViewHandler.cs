@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using _Project.AppUI.Components.Draggable.Scripts;
-using _Project.AppUI.PlayerID.Scripts;
+using _Project.AppUI.IDHolders.Scripts;
 using _Project.AppUI.SceneLoaders.CardGame.Scripts;
 using _Project.Core.Card.Interfaces;
 using _Project.Game.Player.Interfaces;
@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace _Project.AppUI.Card.Scripts {
-    [RequireComponent(typeof(PlayerIDHolder))]
+    [RequireComponent(typeof(IDHolder))]
     public class CardViewHandler : MonoBehaviour {
         [Header("Components")] [SerializeField]
         GameObject _playerCards;
@@ -25,12 +25,14 @@ namespace _Project.AppUI.Card.Scripts {
 
         ICard[] _cards;
 
-        IList<CardHandler> _cardHandlers;
+        readonly IList<CardHandler> _cardHandlers = new List<CardHandler>();
 
-        PlayerIDHolder _playerID;
+        public IDHolder IDHolder => _idHolder;
+
+        IDHolder _idHolder;
 
         void Awake() {
-            TryGetComponent(out _playerID);
+            TryGetComponent(out _idHolder);
         }
 
         void OnValidate() {
@@ -42,17 +44,15 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void OnEnable() {
-            _playerID.OnPlayerActive += PlayerActive;
-            _playerID.OnPlayerDeActive += PlayerDeActive;
+            _idHolder.OnPlayerActive += PlayerActive;
         }
 
         void OnDisable() {
-            _playerID.OnPlayerActive -= PlayerActive;
-            _playerID.OnPlayerDeActive -= PlayerDeActive;
+            _idHolder.OnPlayerActive -= PlayerActive;
         }
 
         public void SetPlayer(IPlayer player) {
-            _playerID.SetID(player.ID);
+            _idHolder.SetID(player.ID);
             SetPlayerHand(player.GetCards());
         }
 
@@ -70,16 +70,10 @@ namespace _Project.AppUI.Card.Scripts {
             StartCoroutine(DisableLayout());
         }
 
-        void PlayerActive(Guid id) {
+        void PlayerActive(Guid id, bool state) {
             foreach (var card in _cardHandlers)
-                card.IsPlayerActive = true;
+                card.IsPlayerActive = state;
         }
-
-        void PlayerDeActive(Guid id) {
-            foreach (var card in _cardHandlers)
-                card.IsPlayerActive = false;
-        }
-
 
         IEnumerator DisableLayout() {
             yield return new WaitForEndOfFrame();
