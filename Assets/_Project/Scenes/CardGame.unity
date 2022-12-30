@@ -460,7 +460,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _addressableLoader: {fileID: 1989653496}
-  _turnManager: {fileID: 1610372143}
   _turnsHandler: {fileID: 807885211}
 --- !u!4 &1242779305
 Transform:
@@ -626,10 +625,10 @@ MonoBehaviour:
   _gameManager: {fileID: 1242779304}
   _cardViewHandlers:
   - {fileID: 1405798618}
+  - {fileID: 1266685179}
   - {fileID: 1466911980}
   - {fileID: 1128763319}
   - {fileID: 731220538}
-  - {fileID: 1266685179}
   _deckManager: {fileID: 1917250163}
 --- !u!4 &1475528485
 Transform:
