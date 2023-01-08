@@ -99,7 +99,6 @@ namespace _Project.AppUI.Card.Scripts {
             card._card.Value = myValue;
         }
 
-
         public void SetCardData(ICard card) {
             _card = card;
             DisplayCardValue();
