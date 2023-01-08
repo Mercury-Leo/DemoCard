@@ -13,7 +13,7 @@ namespace _Project.Game.TurnsHandler.Scripts {
 
         readonly Dictionary<IPlayer, ITurn> _playerTurns = new();
         int _turnIndex;
-        
+
         public Action<Guid> OnPlayerTurn { get; set; }
 
         void OnEnable() {
@@ -53,11 +53,16 @@ namespace _Project.Game.TurnsHandler.Scripts {
         public void StartTurns() {
             if (_playerTurns.Count <= 0)
                 return;
-            
+
             _turnManager.StartTurn(GetNextTurn());
         }
 
         void CreatePlayerTurn(IPlayer player) {
+            if (_playerTurns.ContainsKey(player)) {
+                _playerTurns[player] = new TurnPlaceholder(TurnTime, player.ID);
+                return;
+            }
+
             _playerTurns.Add(player, new TurnPlaceholder(TurnTime, player.ID));
         }
 
@@ -71,9 +76,9 @@ namespace _Project.Game.TurnsHandler.Scripts {
                     return null;
                 turn = _playerTurns.Values.ElementAt(_turnIndex);
             }
-            
+
             OnPlayerTurn?.Invoke(turn.UserID);
-            
+
             TryIncrementTurnIndex();
 
             return turn;
@@ -81,7 +86,7 @@ namespace _Project.Game.TurnsHandler.Scripts {
 
         void TryIncrementTurnIndex() {
             _turnIndex++;
-            
+
             if (_turnIndex >= _playerTurns.Count)
                 _turnIndex = 0;
         }
