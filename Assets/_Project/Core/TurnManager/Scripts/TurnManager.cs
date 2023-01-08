@@ -1,11 +1,12 @@
 using System;
+using _Project.Core.Singleton;
 using _Project.Core.Time.Scripts;
 using _Project.Core.TurnManager.Interfaces;
 using UnityEngine;
 using static _Project.Core.CoreConventions;
 
 namespace _Project.Core.TurnManager.Scripts {
-    public class TurnManager : MonoBehaviour {
+    public class TurnManager : SingletonBase<TurnManager> {
         readonly InternalTimer _timer = new(TimeProvider);
 
         Coroutine _timerRoutine;
