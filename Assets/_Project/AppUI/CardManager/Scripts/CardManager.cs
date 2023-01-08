@@ -25,12 +25,12 @@ namespace _Project.AppUI.CardManager.Scripts {
 
         void OnEnable() {
             _gameManager.OnInitializePlayers += InitializePlayers;
-            _gameManager.OnActivePlayer += ActivePlayer;
+            _gameManager.OnActivePlayerChanged += ActivePlayer;
         }
 
         void OnDisable() {
             _gameManager.OnInitializePlayers -= InitializePlayers;
-            _gameManager.OnActivePlayer -= ActivePlayer;
+            _gameManager.OnActivePlayerChanged -= ActivePlayer;
         }
 
         void InitializePlayers(List<IPlayer> players) {
