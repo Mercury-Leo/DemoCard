@@ -7,6 +7,16 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         Transform _draggedParent;
         int _draggedIndex;
 
+        public override bool CanBeDragged {
+            get => _canBeDragged;
+            set {
+                _canBeDragged = value;
+                ReturnToBase();
+            }
+        }
+
+        bool _canBeDragged;
+
         BoundDraggableContainer Container {
             get { return _container ??= (BoundDraggableContainer)ContainerBase; }
         }
@@ -95,16 +105,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
             if (!CanBeDragged)
                 return;
 
-            if (Container.CurrentlyDraggedItem != gameObject)
-                return;
-
-            Container.CurrentlyDraggedItem.transform.position = Container.UpdatedTransformPosition;
-            Container.CurrentlyDraggedItem = null;
-            childCanvasGroup.blocksRaycasts = true;
-            transform.SetParent(_draggedParent);
-            transform.SetSiblingIndex(_draggedIndex);
-
-            OnObjectEndDrag?.Invoke();
+            EndDrag();
         }
 
         public override void OnSelect(BaseEventData eventData) {
@@ -119,6 +120,23 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
 
             //base.PointerEnterHandler(draggedItem);
             //Container.UpdatedTransformPosition = transform.position;
+        }
+
+        void EndDrag() {
+            if (Container.CurrentlyDraggedItem != gameObject)
+                return;
+
+            Container.CurrentlyDraggedItem.transform.position = Container.UpdatedTransformPosition;
+            Container.CurrentlyDraggedItem = null;
+            childCanvasGroup.blocksRaycasts = true;
+            transform.SetParent(_draggedParent);
+            transform.SetSiblingIndex(_draggedIndex);
+
+            OnObjectEndDrag?.Invoke();
+        }
+
+        void ReturnToBase() {
+            EndDrag();
         }
     }
 }

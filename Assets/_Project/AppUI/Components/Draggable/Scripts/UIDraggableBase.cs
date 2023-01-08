@@ -12,7 +12,7 @@ namespace _Project.AppUI.Components.Draggable.Scripts {
         [field: SerializeField, SerializeReference]
         public DraggableContainerBase ContainerBase { get; set; }
         
-        public bool CanBeDragged { get; set; }
+        public virtual bool CanBeDragged { get; set; }
 
         protected RectTransform DraggableRectTransform {
             get { return _rectTransform ??= GetComponent<RectTransform>(); }
