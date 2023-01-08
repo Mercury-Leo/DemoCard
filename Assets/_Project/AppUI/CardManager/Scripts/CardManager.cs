@@ -5,32 +5,24 @@ using _Project.AppUI.Deck.Scripts;
 using _Project.AppUI.IDHolders.Scripts;
 using _Project.Game;
 using _Project.Game.Player.Interfaces;
-using Editor.Logger.Scripts;
 using UnityEngine;
 
 namespace _Project.AppUI.CardManager.Scripts {
     public class CardManager : MonoBehaviour {
-        [SerializeField] GameManager _gameManager;
-
         [SerializeField] List<CardViewHandler> _cardViewHandlers;
 
         [SerializeField] DeckManager _deckManager;
 
         readonly IList<IDHolder> _idHolders = new List<IDHolder>();
-
-        void OnValidate() {
-            if (_gameManager is null)
-                this.LogWarning("Game Manager isn't assigned!");
-        }
-
+        
         void OnEnable() {
-            _gameManager.OnInitializePlayers += InitializePlayers;
-            _gameManager.OnActivePlayerChanged += ActivePlayer;
+            GameManager.Instance.OnInitializePlayers += InitializePlayers;
+            GameManager.Instance.OnActivePlayerChanged += ActivePlayer;
         }
 
         void OnDisable() {
-            _gameManager.OnInitializePlayers -= InitializePlayers;
-            _gameManager.OnActivePlayerChanged -= ActivePlayer;
+            GameManager.Instance.OnInitializePlayers -= InitializePlayers;
+            GameManager.Instance.OnActivePlayerChanged -= ActivePlayer;
         }
 
         void InitializePlayers(List<IPlayer> players) {
