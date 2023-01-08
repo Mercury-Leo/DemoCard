@@ -9,23 +9,21 @@ using static _Project.Game.GameConventions;
 
 namespace _Project.Game.TurnsHandler.Scripts {
     public class TurnHandler : MonoBehaviour {
-        [SerializeField] TurnManager _turnManager;
-
         readonly Dictionary<IPlayer, ITurn> _playerTurns = new();
         int _turnIndex;
 
         public Action<Guid> OnPlayerTurn { get; set; }
 
         void OnEnable() {
-            _turnManager.OnTurnLose += EndTurn;
+            TurnManager.Instance.OnTurnLose += EndTurn;
         }
 
         void OnDisable() {
-            _turnManager.OnTurnLose -= EndTurn;
+            TurnManager.Instance.OnTurnLose -= EndTurn;
         }
 
         public void EndTurn() {
-            _turnManager.NextTurn(GetNextTurn());
+            TurnManager.Instance.NextTurn(GetNextTurn());
         }
 
         public void AddPlayer(IPlayer player) {
@@ -54,7 +52,7 @@ namespace _Project.Game.TurnsHandler.Scripts {
             if (_playerTurns.Count <= 0)
                 return;
 
-            _turnManager.StartTurn(GetNextTurn());
+            TurnManager.Instance.StartTurn(GetNextTurn());
         }
 
         void CreatePlayerTurn(IPlayer player) {
