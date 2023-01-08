@@ -520,7 +520,7 @@ Transform:
   m_Children:
   - {fileID: 1610372144}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &807885211
 MonoBehaviour:
@@ -534,7 +534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f3a6f3e46764a644a2dc56960e3c47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _turnManager: {fileID: 1610372143}
 --- !u!1 &953404661
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +697,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1266685179 stripped
 MonoBehaviour:
@@ -846,7 +845,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a79742cd1c22b438cd428d542c6163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameManager: {fileID: 1242779304}
   _cardViewHandlers:
   - {fileID: 1405798618}
   - {fileID: 1266685179}
@@ -867,7 +865,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1512310486
 GameObject:
@@ -1116,7 +1114,7 @@ GameObject:
   - component: {fileID: 1804623867}
   - component: {fileID: 1804623866}
   m_Layer: 0
-  m_Name: TurnEffect
+  m_Name: EffectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1147,7 +1145,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1818637736
 GameObject:
@@ -1179,7 +1177,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 289734975}
-  _gameManager: {fileID: 1242779304}
 --- !u!4 &1818637738
 Transform:
   m_ObjectHideFlags: 0
@@ -1193,7 +1190,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880090664
 GameObject:
