@@ -45,10 +45,12 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         public Action<ICard> OnCardClicked { get; set; }
+        public Action OnCardRemoved { get; set; }
+        public Action<int> OnValueChanged { get; set; }
 
         bool _isPlayerActive;
-        ICard _card;
         bool _showValue;
+        ICard _card;
         UIDraggableBase _draggedObject;
 
         protected override void Awake() {
@@ -71,7 +73,7 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         protected void OnDestroy() {
-            _card.OnValueChanged -= OnValueChanged;
+            _card.OnValueChanged -= ValueChanged;
         }
 
         void ObjectBeingHovered(Transform hovering) {
@@ -86,24 +88,37 @@ namespace _Project.AppUI.Card.Scripts {
 
         void OnObjectExitHover() { }
 
-        void ObjectDropped(Transform obj) {
-            if (obj == transform)
+        /// <summary>
+        /// Object Dropped is on the object that a card was dropped on
+        /// <example>
+        /// If I take card '8' and put it over card '4', this function is run on the '4' card
+        /// </example>
+        /// </summary>
+        /// <param name="droppedObject"></param>
+        void ObjectDropped(Transform droppedObject) {
+            if (droppedObject == transform)
                 return;
 
-            var card = GetCard(obj);
+            var droppedCard = GetCard(droppedObject);
 
-            var value = card._card.Value;
+            if (!droppedCard.IsPlayerActive)
+                return;
+
+            if (droppedCard._cardID.Equals(_card.OwnerID))
+                return;
+
+            var value = droppedCard._card.Value;
             var myValue = _card.Value;
 
             _card.Value = value;
-            card._card.Value = myValue;
+            droppedCard._card.Value = myValue;
         }
 
         public void SetCardData(ICard card) {
             _card = card;
             DisplayCardValue();
             ShowValue = false;
-            _card.OnValueChanged += OnValueChanged;
+            _card.OnValueChanged += ValueChanged;
             _cardDataValue = _card.Value;
             _cardID = _card.OwnerID;
         }
@@ -114,8 +129,9 @@ namespace _Project.AppUI.Card.Scripts {
 
         void DisplayCardValue() => CardValue = _card.Value.ToString();
 
-        void OnValueChanged() {
+        void ValueChanged() {
             DisplayCardValue();
+            OnValueChanged?.Invoke(_card.Value);
         }
 
         protected override void ButtonClicked() {
