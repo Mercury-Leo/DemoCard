@@ -23,10 +23,6 @@ namespace _Project.AppUI.SceneLoaders.CardGame.Scripts {
             }
         }
 
-        public override bool FinishedLoading() {
-            return hasLoaded;
-        }
-
         public override void ClearAssets() {
             Card = null;
         }
