@@ -10,20 +10,18 @@ namespace _Project.AppUI.PlayerTurnBroadcaster {
     public class TurnBroadcaster : MonoBehaviour {
         [SerializeField] UIText _text;
 
-        [SerializeField] GameManager _gameManager;
-
         readonly Dictionary<Guid, TextPlaceholder> _turnTexts = new();
 
         const string TurnSuffix = "'s Turn";
 
         void OnEnable() {
-            _gameManager.OnInitializePlayers += SetPlayers;
-            _gameManager.OnActivePlayerChanged += OnActivePlayer;
+            GameManager.Instance.OnInitializePlayers += SetPlayers;
+            GameManager.Instance.OnActivePlayerChanged += OnActivePlayer;
         }
 
         void OnDisable() {
-            _gameManager.OnInitializePlayers -= SetPlayers;
-            _gameManager.OnActivePlayerChanged -= OnActivePlayer;
+            GameManager.Instance.OnInitializePlayers -= SetPlayers;
+            GameManager.Instance.OnActivePlayerChanged -= OnActivePlayer;
         }
 
         void SetPlayers(IList<IPlayer> players) {
