@@ -14,8 +14,10 @@ namespace _Project.AppUI.Deck.Scripts {
 
         [Header("Loader")] [SerializeField] protected CardGameLoaderSO _loader;
 
-        public Action OnCardDrew { get; set; }
+        public Action<ICard> OnCardDrew { get; set; }
         public Action OnPileEmpty { get; set; }
+        
+        public bool CanDraw { get; set; }
 
         protected Stack<ICard> PileCards;
 
@@ -49,6 +51,9 @@ namespace _Project.AppUI.Deck.Scripts {
             if (PileCards is null)
                 return null;
 
+            if (!CanDraw)
+                return null;
+
             if (PileCards.TryPop(out var cardResult)) return cardResult;
 
             OnPileEmpty?.Invoke();
@@ -62,7 +67,7 @@ namespace _Project.AppUI.Deck.Scripts {
 
             cardHandler.SetCardData(card);
             cardHandler.ShowValue = true;
-            OnCardDrew?.Invoke();
+            OnCardDrew?.Invoke(card);
         }
     }
 }
