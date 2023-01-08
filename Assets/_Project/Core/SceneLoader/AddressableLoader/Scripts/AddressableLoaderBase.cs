@@ -8,7 +8,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace _Project.Core.SceneLoader.AddressableLoader.Scripts {
     public abstract class AddressableLoaderBase : MonoBehaviour, IAddressableLoader {
-
         [SerializeField] protected SceneLoaderBaseSO _loader;
         public Action OnLoadingFinished { get; set; }
         public IList<AsyncOperationHandle> AssetHandles { get; set; } = new List<AsyncOperationHandle>();
@@ -21,7 +20,7 @@ namespace _Project.Core.SceneLoader.AddressableLoader.Scripts {
             foreach (var handle in AssetHandles) {
                 Addressables.Release(handle);
             }
-            
+
             _loader.ClearAssets();
         }
 
