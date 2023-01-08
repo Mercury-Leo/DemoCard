@@ -31,7 +31,7 @@ namespace _Project.Game {
         public Action OnGameEnd { get; set; }
         public Action<List<IPlayer>> OnInitializePlayers { get; set; }
         public Action<IDeck> OnDeckDealt { get; set; }
-        public Action<Guid> OnActivePlayer { get; set; }
+        public Action<Guid> OnActivePlayerChanged { get; set; }
 
         void OnEnable() {
             _addressableLoader.OnLoadingFinished += LoadingFinished;
@@ -77,7 +77,7 @@ namespace _Project.Game {
         
         void PlayerTurn(Guid id) {
             _activePlayer = id;
-            OnActivePlayer?.Invoke(_activePlayer);
+            OnActivePlayerChanged?.Invoke(_activePlayer);
         }
     }
 }

@@ -18,12 +18,12 @@ namespace _Project.AppUI.PlayerTurnBroadcaster {
 
         void OnEnable() {
             _gameManager.OnInitializePlayers += SetPlayers;
-            _gameManager.OnActivePlayer += OnActivePlayer;
+            _gameManager.OnActivePlayerChanged += OnActivePlayer;
         }
 
         void OnDisable() {
             _gameManager.OnInitializePlayers -= SetPlayers;
-            _gameManager.OnActivePlayer -= OnActivePlayer;
+            _gameManager.OnActivePlayerChanged -= OnActivePlayer;
         }
 
         void SetPlayers(IList<IPlayer> players) {

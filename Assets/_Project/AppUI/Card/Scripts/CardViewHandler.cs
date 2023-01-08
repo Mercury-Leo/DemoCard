@@ -44,11 +44,11 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void OnEnable() {
-            _idHolder.OnPlayerActive += PlayerActive;
+            IDHolder.OnPlayerActive += PlayerActive;
         }
 
         void OnDisable() {
-            _idHolder.OnPlayerActive -= PlayerActive;
+            IDHolder.OnPlayerActive -= PlayerActive;
         }
 
         public void SetPlayer(IPlayer player) {
@@ -63,6 +63,7 @@ namespace _Project.AppUI.Card.Scripts {
                 var prefab = Instantiate(_loader.Card, _playerCards.transform);
                 prefab.SetCardData(_cards[i]);
                 prefab.OnCardClicked += CardClicked;
+                prefab.OnValueChanged += ValueChanged;
                 prefab.SetContainer(_container);
                 _cardHandlers.Add(prefab);
             }
@@ -82,6 +83,10 @@ namespace _Project.AppUI.Card.Scripts {
 
         void CardClicked(ICard card) {
             this.Log($"Clicked card: {card.Value}");
+        }
+        
+        void ValueChanged(int obj) {
+            
         }
     }
 }
