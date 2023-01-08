@@ -4,6 +4,7 @@ using System.Linq;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Dealer.Scripts;
 using _Project.Core.SceneLoader.AddressableLoader.Scripts;
+using _Project.Core.Singleton;
 using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
@@ -12,8 +13,7 @@ using UnityEngine;
 using static _Project.Game.GameConventions;
 
 namespace _Project.Game {
-    public class GameManager : MonoBehaviour {
-
+    public class GameManager : SingletonBase<GameManager> {
         [SerializeField] AddressableLoaderBase _addressableLoader;
 
         [SerializeField] TurnHandler _turnsHandler;
@@ -23,7 +23,7 @@ namespace _Project.Game {
         IDeck _deck;
 
         List<IPlayer> _activePlayers;
-        Guid _activePlayer;
+        public Guid ActivePlayerID;
 
         public bool CanJoinGame { get; private set; }
 
@@ -55,17 +55,17 @@ namespace _Project.Game {
             _playerCreator = new PlayerCreator();
             _deckCreator = new DeckCreator();
             _deck = new Deck(_deckCreator);
-            
+
             var players = _playerCreator.Generate(MaxPlayers);
-            
+
             foreach (var player in players) {
                 player.PopulateCards(_deck.Draw(StartingHand).ToList());
                 _activePlayers.Add(player);
             }
-            
+
             StartGame();
         }
-        
+
         void StartGame() {
             CanJoinGame = false;
             OnInitializePlayers?.Invoke(_activePlayers);
@@ -74,10 +74,10 @@ namespace _Project.Game {
             _turnsHandler.StartTurns();
             OnGameStart?.Invoke();
         }
-        
+
         void PlayerTurn(Guid id) {
-            _activePlayer = id;
-            OnActivePlayerChanged?.Invoke(_activePlayer);
+            ActivePlayerID = id;
+            OnActivePlayerChanged?.Invoke(ActivePlayerID);
         }
     }
 }
