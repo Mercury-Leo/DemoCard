@@ -1,7 +1,7 @@
 using System;
+using _Project.AppUI.Card.Scripts;
 using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.Core;
-using _Project.Core.Card.Interfaces;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.TurnManager.Scripts;
 using _Project.Game;
@@ -14,6 +14,8 @@ namespace _Project.AppUI.Deck.Scripts {
         [SerializeField] CardPileBase _pile;
 
         [SerializeField] CardPileBase _discarded;
+
+        CardHandler _currentCard;
 
         public Action OnCardDrew { get; set; }
         
@@ -58,11 +60,20 @@ namespace _Project.AppUI.Deck.Scripts {
 
         void TurnEnded() {
             CanDrawCard = false;
+            _discarded.AddCard(_currentCard);
+            _currentCard = null;
+            PlayerEffectManager.Instance.SetCurrentTurnEffect();
         }
 
-        void DrewCard(ICard card) {
+        void DrewCard(CardHandler cardHandler) {
             OnCardDrew?.Invoke();
             CanDrawCard = false;
+            
+            _currentCard = cardHandler;
+            var card = cardHandler.Data;
+
+            if (card is null)
+                return;
             if (card.CardEffect is CoreConventions.CardEffect.NoEffect)
                 return;
 
