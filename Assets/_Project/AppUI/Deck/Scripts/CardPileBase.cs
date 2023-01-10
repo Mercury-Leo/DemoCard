@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Project.AppUI.Card.Scripts;
 using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.AppUI.SceneLoaders.CardGame.Scripts;
@@ -14,12 +15,16 @@ namespace _Project.AppUI.Deck.Scripts {
 
         [Header("Loader")] [SerializeField] protected CardGameLoaderSO _loader;
 
-        public Action<ICard> OnCardDrew { get; set; }
+        public Action<CardHandler> OnCardDrew { get; set; }
         public Action OnPileEmpty { get; set; }
         
         public bool CanDraw { get; set; }
 
-        protected Stack<ICard> PileCards;
+        public Transform DraggedZone => _draggedZone;
+
+        protected Stack<ICard> PileCards = new();
+
+        protected Stack<CardHandler> PileCardHandlers = new();
 
         protected override void OnEnable() {
             base.OnEnable();
@@ -47,6 +52,14 @@ namespace _Project.AppUI.Deck.Scripts {
             PileCards.Push(card);
         }
 
+        public virtual void AddCard(CardHandler card) {
+            card.IsDraggable = false;
+            card.transform.SetParent(_draggedZone);
+            card.transform.position = _draggedZone.position;
+            
+            PileCardHandlers.Push(card);
+        }
+
         protected ICard GetCard() {
             if (PileCards is null)
                 return null;
@@ -61,13 +74,27 @@ namespace _Project.AppUI.Deck.Scripts {
             return null;
         }
 
-        protected void CreateCard(ICard card) {
+        protected CardHandler GetCardHandler() {
+            if (PileCardHandlers is null)
+                return null;
+            
+            if (!CanDraw)
+                return null;
+
+            if (PileCardHandlers.TryPop(out var cardHandler)) return cardHandler;
+            
+            OnPileEmpty?.Invoke();
+            return null;
+        }
+
+        protected CardHandler CreateCard(ICard card) {
             var cardHandler = Instantiate(_loader.Card, _draggedZone);
             cardHandler.SetContainer(_container);
 
             cardHandler.SetCardData(card);
             cardHandler.ShowValue = true;
-            OnCardDrew?.Invoke(card);
+            OnCardDrew?.Invoke(cardHandler);
+            return cardHandler;
         }
     }
 }
