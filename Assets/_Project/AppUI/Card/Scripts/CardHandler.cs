@@ -28,14 +28,6 @@ namespace _Project.AppUI.Card.Scripts {
             }
         }
 
-        string CardValue {
-            set {
-                if (_cardValue is null)
-                    return;
-                _cardValue.text = value;
-            }
-        }
-
         public bool ShowValue {
             get => _showValue;
             set {
@@ -44,13 +36,30 @@ namespace _Project.AppUI.Card.Scripts {
             }
         }
 
+        public bool IsDraggable {
+            set {
+                if (_draggedObject is null)
+                    return;
+                _draggedObject.CanBeDragged = value;
+            }
+        }
+        
+        string CardValue {
+            set {
+                if (_cardValue is null)
+                    return;
+                _cardValue.text = value;
+            }
+        }
+
+        public ICard Data { get; private set; }
+
         public Action<ICard> OnCardClicked { get; set; }
         public Action OnCardRemoved { get; set; }
         public Action<int> OnValueChanged { get; set; }
 
         bool _isPlayerActive;
         bool _showValue;
-        ICard _card;
         UIDraggableBase _draggedObject;
 
         protected override void Awake() {
@@ -73,16 +82,16 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         protected void OnDestroy() {
-            _card.OnValueChanged -= ValueChanged;
+            Data.OnValueChanged -= ValueChanged;
         }
 
         void ObjectBeingHovered(Transform hovering) {
-            this.LogWarning($"is being hovered {_card.Value}");
+            this.LogWarning($"is being hovered {Data.Value}");
             var card = GetCard(hovering);
 
-            this.LogSuccess($"hovering is {card._card.Value}");
+            this.LogSuccess($"hovering is {card.Data.Value}");
 
-            if (card._card.OwnerID.Equals(_card.OwnerID))
+            if (card.Data.OwnerID.Equals(Data.OwnerID))
                 this.LogSuccess("Valid move!");
         }
 
@@ -104,39 +113,39 @@ namespace _Project.AppUI.Card.Scripts {
             if (!droppedCard.IsPlayerActive)
                 return;
 
-            if (droppedCard._cardID.Equals(_card.OwnerID))
+            if (droppedCard._cardID.Equals(Data.OwnerID))
                 return;
 
-            var value = droppedCard._card.Value;
-            var myValue = _card.Value;
+            var value = droppedCard.Data.Value;
+            var myValue = Data.Value;
 
-            _card.Value = value;
-            droppedCard._card.Value = myValue;
+            Data.Value = value;
+            droppedCard.Data.Value = myValue;
         }
 
         public void SetCardData(ICard card) {
-            _card = card;
+            Data = card;
             DisplayCardValue();
             ShowValue = false;
-            _card.OnValueChanged += ValueChanged;
-            _cardDataValue = _card.Value;
-            _cardID = _card.OwnerID;
+            Data.OnValueChanged += ValueChanged;
+            _cardDataValue = Data.Value;
+            _cardID = Data.OwnerID;
         }
 
         public void SetContainer(DraggableContainerBase container) {
             _draggedObject.ContainerBase = container;
         }
 
-        void DisplayCardValue() => CardValue = _card.Value.ToString();
+        void DisplayCardValue() => CardValue = Data.Value.ToString();
 
         void ValueChanged() {
             DisplayCardValue();
-            OnValueChanged?.Invoke(_card.Value);
+            OnValueChanged?.Invoke(Data.Value);
         }
 
         protected override void ButtonClicked() {
             base.ButtonClicked();
-            OnCardClicked?.Invoke(_card);
+            OnCardClicked?.Invoke(Data);
         }
 
         CardHandler GetCard(Transform trans) {
