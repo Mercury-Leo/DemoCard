@@ -6,7 +6,9 @@ namespace _Project.AppUI.Deck.Scripts {
             if (card is null)
                 return;
 
-            CreateCard(card);
+            var handler = CreateCard(card);
+            
+            handler.IsDraggable = true;
         }
     }
 }
