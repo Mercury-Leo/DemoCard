@@ -10,5 +10,7 @@ namespace _Project.AppUI.Deck.Scripts {
             
             handler.IsDraggable = true;
         }
+
+        protected override void DrawStateChanged(bool state) { }
     }
 }
