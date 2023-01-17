@@ -4,13 +4,6 @@ using UnityEngine;
 
 namespace LeosClockworks.Editor.Tools {
     public class SceneSelectionOverlaySettingsProvider : SettingsProvider {
-        const string AdditiveOptionPref = "ShowAdditiveSceneOption";
-
-        public static bool AdditiveOptionEnabled {
-            get => EditorPrefs.GetBool(AdditiveOptionPref, true);
-            set => EditorPrefs.SetBool(AdditiveOptionPref, value);
-        }
-
         public SceneSelectionOverlaySettingsProvider(string path, SettingsScope scopes,
             IEnumerable<string> keywords = null) : base(path, scopes, keywords) { }
 
@@ -23,16 +16,16 @@ namespace LeosClockworks.Editor.Tools {
 
             GUILayout.Space(20f);
 
-            var enabled = AdditiveOptionEnabled;
+            var enabled = SceneSelectionOverlaySettings.instance.AdditiveOptionEnabled;
             var value = EditorGUILayout.Toggle("Additive Option", enabled, GUILayout.Width(200f));
 
             if (enabled != value)
-                AdditiveOptionEnabled = value;
+                SceneSelectionOverlaySettings.instance.AdditiveOptionEnabled = value;
         }
 
         [SettingsProvider]
         public static SettingsProvider CreateSettingsProvider() {
-            return new SceneSelectionOverlaySettingsProvider("Tools/Scene Selection Overlay", SettingsScope.User);
+            return new SceneSelectionOverlaySettingsProvider("Tools/Scene Selection Overlay", SettingsScope.Project);
         }
     }
 }

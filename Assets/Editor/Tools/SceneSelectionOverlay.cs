@@ -70,7 +70,7 @@ namespace LeosClockworks.Editor.Tools {
                         continue;
                     }
 
-                    if (SceneSelectionOverlaySettingsProvider.AdditiveOptionEnabled) {
+                    if (SceneSelectionOverlaySettings.instance.AdditiveOptionEnabled) {
                         menu.AddItem(new GUIContent(sceneName + "/Single"), false,
                             () => OpenScene(activeScene, path, OpenSceneMode.Single));
                         menu.AddItem(new GUIContent(sceneName + "/Additive"), false,
