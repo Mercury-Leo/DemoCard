@@ -53,7 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pile: {fileID: 3521791183099274442}
-  _discarded: {fileID: 4975450583934554754}
+  _discarded: {fileID: 0}
 --- !u!114 &6776513921487085243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,19 +213,29 @@ PrefabInstance:
       propertyPath: fallbackSpriteSettings.SecondaryColor.r
       value: 0.28453588
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5317237210234254149, guid: 673aa5d144c4e9d42b9c5f6637ce18f5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 673aa5d144c4e9d42b9c5f6637ce18f5, type: 3}
---- !u!114 &4975450583934554754 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5317237210234254149, guid: 673aa5d144c4e9d42b9c5f6637ce18f5, type: 3}
+--- !u!1 &4975450583934554756 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5317237210234254147, guid: 673aa5d144c4e9d42b9c5f6637ce18f5, type: 3}
   m_PrefabInstance: {fileID: 920641856170992071}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &5277056958641833596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4975450583934554756}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cb535db7b7131b45be35b5ff424f40f, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e836ae908ffd9748ba4b4cc91fd95a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _draggedZone: {fileID: 0}
+  _container: {fileID: 6776513921487085243}
+  _loader: {fileID: 11400000, guid: 2d8e3be210808c14a89a2d0559f00d27, type: 2}
 --- !u!224 &4975450583934554757 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5317237210234254146, guid: 673aa5d144c4e9d42b9c5f6637ce18f5, type: 3}

@@ -17,8 +17,16 @@ namespace _Project.AppUI.Deck.Scripts {
 
         public Action<CardHandler> OnCardDrew { get; set; }
         public Action OnPileEmpty { get; set; }
-        
-        public bool CanDraw { get; set; }
+
+        public bool CanDraw {
+            get => _canDraw;
+            set {
+                _canDraw = value;
+                DrawStateChanged(value);
+            }
+        }
+
+        bool _canDraw;
 
         public Transform DraggedZone => _draggedZone;
 
@@ -37,6 +45,8 @@ namespace _Project.AppUI.Deck.Scripts {
         }
 
         protected abstract void DrawCard();
+        
+        protected abstract void DrawStateChanged(bool state);
 
         public virtual void SetPile(Stack<ICard> cards) {
             if (cards is null)
@@ -54,8 +64,9 @@ namespace _Project.AppUI.Deck.Scripts {
 
         public virtual void AddCard(CardHandler card) {
             card.IsDraggable = false;
-            card.transform.SetParent(_draggedZone);
-            card.transform.position = _draggedZone.position;
+            var cardTransform = card.transform;
+            cardTransform.SetParent(_draggedZone);
+            cardTransform.position = _draggedZone.position;
             
             PileCardHandlers.Push(card);
         }
