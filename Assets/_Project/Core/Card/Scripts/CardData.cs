@@ -1,5 +1,6 @@
 using System;
 using _Project.Core.Card.Interfaces;
+using _Project.Core.Enums.CardEffects;
 using _Project.Core.Extensions.Card;
 
 namespace _Project.Core.Card.Scripts {
@@ -15,7 +16,7 @@ namespace _Project.Core.Card.Scripts {
             }
         }
 
-        public CoreConventions.CardEffect CardEffect { get; set; }
+        public CardEffects CardEffect { get; set; }
         public Guid OwnerID { get; set; }
         
         public Action OnValueChanged { get; set; }

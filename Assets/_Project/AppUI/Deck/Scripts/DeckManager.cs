@@ -1,8 +1,8 @@
 using System;
 using _Project.AppUI.Card.Scripts;
 using _Project.AppUI.Components.Draggable.Scripts;
-using _Project.Core;
 using _Project.Core.Dealer.Interfaces;
+using _Project.Core.Enums.CardEffects;
 using _Project.Core.TurnManager.Scripts;
 using _Project.Game;
 using _Project.Game.TurnEffect;
@@ -74,7 +74,7 @@ namespace _Project.AppUI.Deck.Scripts {
 
             if (card is null)
                 return;
-            if (card.CardEffect is CoreConventions.CardEffect.NoEffect)
+            if (card.CardEffect is CardEffects.NoEffect)
                 return;
 
             PlayerEffectManager.Instance.SetCurrentTurnEffect(card.CardEffect);
