@@ -22,7 +22,7 @@ namespace _Project.Core.Singleton {
             }
         }
 
-        protected void Awake() {
+        protected virtual void Awake() {
             if (Instance is not null && Instance != this) {
                 Destroy(this);
                 return;
