@@ -9,6 +9,7 @@ using _Project.Game.Player.Interfaces;
 using _Project.Game.PlayerUtility.Interfaces;
 using _Project.Game.PlayerUtility.Scripts;
 using _Project.Game.TurnsHandler.Scripts;
+using Editor.Logger;
 using UnityEngine;
 using static _Project.Game.GameConventions;
 
@@ -32,6 +33,10 @@ namespace _Project.Game {
         public Action<List<IPlayer>> OnInitializePlayers { get; set; }
         public Action<IDeck> OnDeckDealt { get; set; }
         public Action<Guid> OnActivePlayerChanged { get; set; }
+
+        protected override void Awake() {
+            Debug.unityLogger.logHandler = new EnhancedLogger();
+        }
 
         void OnEnable() {
             _addressableLoader.OnLoadingFinished += LoadingFinished;
