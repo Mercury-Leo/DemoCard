@@ -2,7 +2,6 @@ using System;
 using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.Core.Card.Interfaces;
-using Editor.Logger.Scripts;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -86,13 +85,11 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void ObjectBeingHovered(Transform hovering) {
-            this.LogWarning($"is being hovered {Data.Value}");
             var card = GetCard(hovering);
-
-            this.LogSuccess($"hovering is {card.Data.Value}");
+            
 
             if (card.Data.OwnerID.Equals(Data.OwnerID))
-                this.LogSuccess("Valid move!");
+                Debug.LogError("Valid move!");
         }
 
         void OnObjectExitHover() { }

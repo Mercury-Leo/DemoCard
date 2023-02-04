@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Project.Core.Card.Interfaces;
 using _Project.Game.Player.Interfaces;
-using Editor.Logger.Scripts;
+using UnityEngine;
 
 namespace _Project.Game.Player.Scripts {
     public class CardPlayer : IPlayer {
@@ -41,7 +41,7 @@ namespace _Project.Game.Player.Scripts {
             var didRemove = _cards.Remove(cardToRemove);
             if (didRemove)
                 return cardToRemove;
-            this.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {ID}");
+            Debug.LogError($"Failed to remove Card: {cardToRemove.Value} from player: {ID}");
             return null;
         }
 

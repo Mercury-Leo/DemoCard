@@ -7,7 +7,6 @@ using _Project.AppUI.IDHolders.Scripts;
 using _Project.AppUI.SceneLoaders.CardGame.Scripts;
 using _Project.Core.Card.Interfaces;
 using _Project.Game.Player.Interfaces;
-using Editor.Logger.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,10 +36,10 @@ namespace _Project.AppUI.Card.Scripts {
 
         void OnValidate() {
             if (_playerCards is null)
-                this.LogWarning("Player Cards not assigned", this);
+                Debug.LogError("Player Cards not assigned", this);
 
             if (_layout is null)
-                this.LogWarning("Layout not assigned", this);
+                Debug.LogError("Layout not assigned", this);
         }
 
         void OnEnable() {
@@ -82,7 +81,7 @@ namespace _Project.AppUI.Card.Scripts {
         }
 
         void CardClicked(ICard card) {
-            this.Log($"Clicked card: {card.Value}");
+            Debug.LogError($"Clicked card: {card.Value}");
         }
         
         void ValueChanged(int obj) {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using _Project.Core.Card.Interfaces;
 using _Project.Core.Dealer.Interfaces;
 using _Project.Core.Extensions.Collections;
-using Editor.Logger.Scripts;
+using UnityEngine;
 using static _Project.Core.CoreConventions;
 
 namespace _Project.Core.Dealer.Scripts {
@@ -20,7 +20,7 @@ namespace _Project.Core.Dealer.Scripts {
 
             if (draw)
                 return card;
-            this.LogError("Failed to draw card!");
+            Debug.Log("Failed to draw card!");
             return null;
         }
 

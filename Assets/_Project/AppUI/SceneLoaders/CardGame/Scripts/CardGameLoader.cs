@@ -1,6 +1,5 @@
 using _Project.AppUI.Card.Scripts;
 using _Project.Core.SceneLoader.AddressableLoader.Scripts;
-using Editor.Logger.Scripts;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AddressableAssets.ResourceLocators;
@@ -29,7 +28,7 @@ namespace _Project.AppUI.SceneLoaders.CardGame.Scripts {
 
             card.Completed += handle => {
                 if (handle.Status is not AsyncOperationStatus.Succeeded) {
-                    this.LogError("Failed to load card asset");
+                    Debug.LogError("Failed to load card asset");
                     return;
                 }
 

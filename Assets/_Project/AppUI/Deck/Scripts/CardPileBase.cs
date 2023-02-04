@@ -5,7 +5,6 @@ using _Project.AppUI.Components.Draggable.Scripts;
 using _Project.AppUI.Components.Scripts;
 using _Project.AppUI.SceneLoaders.CardGame.Scripts;
 using _Project.Core.Card.Interfaces;
-using Editor.Logger.Scripts;
 using UnityEngine;
 
 namespace _Project.AppUI.Deck.Scripts {
@@ -81,7 +80,7 @@ namespace _Project.AppUI.Deck.Scripts {
             if (PileCards.TryPop(out var cardResult)) return cardResult;
 
             OnPileEmpty?.Invoke();
-            this.Log("Failed to pop card");
+            Debug.LogError("Failed to pop card");
             return null;
         }
 
